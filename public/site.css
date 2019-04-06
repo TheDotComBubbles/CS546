@@ -1,0 +1,98 @@
+* {
+    box-sizing: border-box;
+    color: white;
+
+  }
+
+html {
+    padding: 5%
+}
+
+body {
+    background-color: black;
+    font-size: 12pt;
+    border-style: solid;
+    border-color: white;
+    padding: 5%;
+}
+
+main {
+    max-width: 85%;
+    margin: auto;
+}
+
+h1 {
+    border: 1px solid white;
+    font-size: 2rem;
+    text-align: center;
+}
+
+h2 {
+    font-size: 1.5rem;
+}
+
+h3 {
+    font-size: 1.5rem;
+}
+
+input {
+    color: black;
+}
+
+button {
+    color: black;
+}
+
+p {
+    font-style: italic;
+}
+
+footer {
+    border-top: 1px dashed white;
+    padding-top: 5%;
+    text-align: center;
+    margin-top: 5%;
+    /*position: fixed; */
+    bottom: 5%;
+}
+
+dt {
+    font-weight: bold;
+}
+
+dd {
+    margin: 0;
+    padding: 0 0 1% 0;
+    text-indent: 1em
+}
+
+/* Collapsible Objects Styling: */
+.collapsible {
+    background-color: black;
+    border: solid;
+    border-color: white;
+    color: white;
+    cursor: pointer; 
+    padding: 18px;
+    width: 25%;
+    border: white;
+    text-align: left;
+    outline:white;
+    font-size: 2 rem;
+}
+
+.active, .collapsible:hover {
+    background-color: black;
+    border: solid;
+    border-color: white;
+}
+
+.content {
+    padding: 0 18px;
+    display: none;
+    overflow: hidden;
+    background-color: black;
+    width: 25%;
+    border-color: white;
+    border: solid;
+}

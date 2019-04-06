@@ -1,0 +1,47 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title>Test Landing Page</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="/public/site.css">
+
+</head>
+
+<body>
+    <main>
+        <h1>Test Landing Page</h1>
+        <article>
+            <header>
+                <h2>Welcome to the Test Landing Page</h2>
+            </header>
+            <p>Main Landing Page for The DOT COM Bubbles' Team Project and for testing routes and their corresponding database calls 
+            </p>
+            <section class="newUser">
+                <h3>Conduct a User Search Below</h3>
+                <form action="/users" method="POST" class="new-search-form">
+                    <label for="1">
+                        Find User By Id:
+                        <input id="1" name="userId" type="text">
+                    </label> 
+                    <button type="submit">Submit</button>            
+                </form>
+            </section>
+            <section class="newVenue">
+                <h3>Conduct a Venue Search Below</h3>
+                <form action="/venues" method="POST" class="new-search-form">
+                    <label for="2">
+                        Find Venue By Name:
+                        <input id="2" name="venueName" type="text">
+                    </label> 
+                    <button type="submit">Submit</button>            
+                </form>
+            </section>
+        </article>
+    </main>
+</body>
+
+</html>
