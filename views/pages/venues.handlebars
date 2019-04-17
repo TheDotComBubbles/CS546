@@ -1,0 +1,41 @@
+<section>
+    <h1>{{title}}</h1>
+    <article class=searchResult>
+        <h2>Venues</h2>
+        {{#if venues}}
+        {{#each venues}}
+        <div>
+            <button class="collapsible">{{this._id}} {{this.name}}</button>
+            <div class="content">
+                <ul>
+                    <li>Location: {{this.location}}</li>
+                    <li>Hours:</li>
+                    <li>Monday: {{this.hours}}</li>
+                    <li>Style: {{this.style}}</li>
+                    <li>Description: {{this.description}}</li>
+                </ul>  
+            </div>
+        </div>
+        {{/each}} 
+        {{else}}
+            <p class="not-found">We are sorry, but no results were found.  {{user._Id}}.</p>
+        {{/if}}
+    </article>
+</section>
+
+<script>
+    var coll = document.getElementsByClassName("collapsible");
+    var i;
+
+    for (i = 0; i < coll.length; i++) {
+    coll[i].addEventListener("click", function() {
+        this.classList.toggle("active");
+        var content = this.nextElementSibling;
+        if (content.style.display === "block") {
+        content.style.display = "none";
+        } else {
+        content.style.display = "block";
+        }
+    });
+    }
+</script>

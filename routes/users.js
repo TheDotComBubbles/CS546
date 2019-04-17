@@ -17,21 +17,21 @@ const userData = data.users;
     .then(id => {
         if(!searchTerm.length||!id) {
             res.status(400);
-            res.render("error", {
+            res.render("pages/error", {
                 title: "Invalid",
                 searchTerm: searchTerm
             });
         }
         return userData.getUserById(searchTerm)
     }).then((user) => {
-        res.render("user", {
+        res.render("pages/user", {
             title: "Users",
             userId: user._id,
             user
         });
     }).catch(e => {
         res.status(400);
-        res.render("error", {
+        res.render("pages/error", {
             title: "Invalid",
             searchTerm: searchTerm
         });

@@ -42,7 +42,7 @@ createVenue(name, location, hours) {
                         name: name,
                         location: location,
                         locationLatLong: {},
-                        hours: hours,
+                        hours: hours
                         style: "style", 
                         description: "description"
                     }            

@@ -20,24 +20,31 @@
             </header>
             <p>Main Landing Page for The DOT COM Bubbles' Team Project and for testing routes and their corresponding database calls 
             </p>
-            <section class="newUser">
+            <section class="findUser">
                 <h3>Conduct a User Search Below</h3>
                 <form action="/users" method="POST" class="new-search-form">
-                    <label for="1">
+                    <label for="userIdSearch">
                         Find User By Id:
-                        <input id="1" name="userId" type="text">
+                        <input id="userIdSearch" name="userIdSearch" type="text">
                     </label> 
                     <button type="submit">Submit</button>            
                 </form>
             </section>
-            <section class="newVenue">
+            <section class="findVenue">
                 <h3>Conduct a Venue Search Below</h3>
                 <form action="/venues" method="POST" class="new-search-form">
-                    <label for="2">
+                    <label for="venueNameSearch">
                         Find Venue By Name:
-                        <input id="2" name="venueName" type="text">
+                        <input id="venueNameSearch" name="venueNameSearch" type="text">
                     </label> 
                     <button type="submit">Submit</button>            
+                </form>
+                <form action="/venues" method="GET" class="new-search-form">
+                    <label for="getAllVenues">
+                        Find Venue By Name:
+                        <input id="getAllVenues" name="getAllVenues" type="submit">
+                    </label> 
+                    <!--button type="submit">Submit</button-->            
                 </form>
             </section>
         </article>

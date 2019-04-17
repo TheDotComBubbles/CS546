@@ -6,8 +6,19 @@ const data = require("../data");
 const venueData = data.venues;
 
   router.get("/", (req,res) => { 
-    let route = path.resolve("static/peopleFinder.html");
-    res.sendFile(route);
+    venueData.getAllVenues()
+    .then((venues) => {
+        res.render("pages/venues", {
+            title: "All Venues",
+            venues
+        })
+    }).catch(e => {
+        res.status(400);
+        res.render("pages/error", {
+            title: "Invalid",
+            error: e
+        });
+    });
   });
 
   router.post("/", (req,res) => {
@@ -17,21 +28,21 @@ const venueData = data.venues;
     .then(name => {
         if(!searchTerm.length||!name) {
             res.status(400);
-            res.render("error", {
+            res.render("pages/error", {
                 title: "Invalid",
                 searchTerm: searchTerm
             });
         }
         return venueData.getVenueByName(searchTerm)
     }).then((venue) => {
-        res.render("venue", {
+        res.render("pages/venue", {
             title: "Venues",
             venueName: user._id,
             user
         });
     }).catch(e => {
         res.status(400);
-        res.render("error", {
+        res.render("pages/error", {
             title: "Invalid",
             searchTerm: searchTerm
         });

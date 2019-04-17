@@ -16,7 +16,7 @@ const router = express.Router();
             });
             return person;
         }).then((person) => {
-            res.render("person", {
+            res.render("pages/person", {
                 title: "Person Found",
                 personName: person.firstName + ' ' + person.lastName,
                 person

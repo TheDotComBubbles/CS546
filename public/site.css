@@ -39,6 +39,14 @@ input {
     color: black;
 }
 
+label {
+    padding-top: 2%;
+}
+
+form {
+    padding: 2%;
+}
+
 button {
     color: black;
 }
@@ -66,33 +74,48 @@ dd {
     text-indent: 1em
 }
 
-/* Collapsible Objects Styling: */
 .collapsible {
     background-color: black;
     border: solid;
     border-color: white;
     color: white;
     cursor: pointer; 
-    padding: 18px;
-    width: 25%;
+    padding: 2%;
+    width: 75%;
     border: white;
     text-align: left;
     outline:white;
     font-size: 2 rem;
+    border-spacing: 2%, 2%, 2%, 2%;
+    border-collapse: separate;
 }
 
 .active, .collapsible:hover {
     background-color: black;
     border: solid;
     border-color: white;
+    width: 75%;
+    padding: 2%;
+    border-collapse: separate;
 }
 
 .content {
-    padding: 0 18px;
+
+    padding: 2%;
     display: none;
     overflow: hidden;
     background-color: black;
-    width: 25%;
+    width: 75%;
     border-color: white;
     border: solid;
+    border-spacing: 2%, 2%, 2%, 2%;
+    border-collapse: separate;
 }
+
+img {
+    max-width: 100%;
+    height: auto;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+  }
