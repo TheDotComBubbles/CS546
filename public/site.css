@@ -37,10 +37,16 @@ h3 {
 
 input {
     color: black;
+    width: 90%;
+}
+
+.largeTextBody {
+    height: 64px;    
 }
 
 label {
     padding-top: 2%;
+    display: block;
 }
 
 form {

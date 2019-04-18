@@ -21,6 +21,30 @@ const venueData = data.venues;
     });
   });
 
+  
+  router.post("/create", (req,res) => {
+//
+//see postMessage.js from lecture 7 assignment
+    return venueData.createVenue(
+            req.body.name,
+            req.body.location,
+            req.body.style,
+            req.body.description
+    ).then((venue) => {
+        res.render("pages/venues", {
+            title: "Thanks for adding the Venue " + venue.name,
+            id: venue._id,
+            venue
+        });
+    }).catch(e => {
+        res.status(400);
+        res.render("pages/error", {
+            title: "Invalid",
+            error: e
+        });
+    });
+});
+
   router.post("/", (req,res) => {
 
     let searchTerm = req.body.venueName
