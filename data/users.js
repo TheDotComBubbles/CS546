@@ -35,7 +35,6 @@ getUserById(id) {
 },
 
 createUser(name) {
-
     return validate.verifyString(name, "name")
         .then(() => {
             return users()

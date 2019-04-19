@@ -20,9 +20,11 @@
             </header>
             <p>Main Landing Page for The DOT COM Bubbles' Team Project and for testing routes and their corresponding database calls 
             </p>
+
+            <!--Form for adding a new venue-->
             <section class="addVenue">
                 <h3>Add Venue Below</h3>
-                <form action="/venues/create" method="POST" class="new-search-form">
+                <form action="/venues/create" method="POST" class="new-input-form">
                     <label for="venueName">
                         Venue Name:
                         <input id="venueName" name="name" type="text">
@@ -42,6 +44,24 @@
                     <button type="submit">Submit</button>            
                 </form>
             </section>
+
+            <!--Form for adding a new user-->
+            <section class="addUser">
+                <h3>Add User Below</h3>
+                <form action="/users/create" method="POST" class="new-input-form">
+                    <label for="userName">
+                        User Name:
+                        <input id="userName" name="name" type="text">
+                    </label>
+                    <label for="userPassword">
+                        User Password:
+                        <input id="userPassword" name="password" type="password">
+                    </label>
+                    <button type="submit">Submit</button>            
+                </form>
+            </section>
+
+            <!--Form to search for a user-->
             <section class="findUser">
                 <h3>Conduct a User Search Below</h3>
                 <form action="/users" method="POST" class="new-search-form">
@@ -52,6 +72,8 @@
                     <button type="submit">Submit</button>            
                 </form>
             </section>
+
+            <!--Form to search for a venue by name-->
             <section class="findVenue">
                 <h3>Conduct a Venue Search Below</h3>
                 <form action="/venues" method="POST" class="new-search-form">
@@ -61,12 +83,13 @@
                     </label> 
                     <button type="submit">Submit</button>            
                 </form>
+
+                <!--Form to return all venues-->
                 <form action="/venues" method="GET" class="new-search-form">
                     <label for="getAllVenues">
-                        Find Venue By Name:
+                        View all Venues:
                         <input id="getAllVenues" name="getAllVenues" type="submit">
-                    </label> 
-                    <!--button type="submit">Submit</button-->            
+                    </label>            
                 </form>
             </section>
         </article>

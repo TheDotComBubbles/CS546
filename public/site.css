@@ -87,7 +87,7 @@ dd {
     color: white;
     cursor: pointer; 
     padding: 2%;
-    width: 75%;
+    width: 100%;
     border: white;
     text-align: left;
     outline:white;
@@ -100,7 +100,7 @@ dd {
     background-color: black;
     border: solid;
     border-color: white;
-    width: 75%;
+    width: 100%;
     padding: 2%;
     border-collapse: separate;
 }
@@ -111,7 +111,7 @@ dd {
     display: none;
     overflow: hidden;
     background-color: black;
-    width: 75%;
+    width: 100%;
     border-color: white;
     border: solid;
     border-spacing: 2%, 2%, 2%, 2%;

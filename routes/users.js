@@ -10,6 +10,22 @@ const userData = data.users;
     res.sendFile(route);
   });
 
+  router.post("/create", (req,res) => {
+      userData.createUser(req.body.name)
+      .then((user) => {
+          res.render("pages/user", {
+              title: "Thanks For Adding: " + req.body.name,
+              user
+          })
+      }).catch(e => {
+        res.status(400);
+        res.render("pages/error", {
+            title: "Invalid",
+            searchTerm: req.body.name + e
+        });
+    });
+})
+
   router.post("/", (req,res) => {
 
     let searchTerm = req.body.userId
