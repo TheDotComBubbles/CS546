@@ -3,15 +3,15 @@
     <article class=searchResult>
         <h2>{{userId}}</h2>
         {{#if user}}
-        <button class="collapsible">Found: {{user._id}}, and it's {{user.name}}</button>
+        <button class="collapsible">User ID: {{user._id}} and User Name: {{user.name}}</button>
         <div class="content">
-            <h3>Liked Venues:</h3>
+            <p>Liked Venues:</p>
             {{#each user.likes}}
                 <p>{{this}}</p>  
             {{/each}}        
         </div>
         {{else}}
-            <p class="not-found">We're sorry, but no results were found for {{user._Id}}.</p>
+            <p class="not-found">We are sorry, but no results were found for {{user._Id}}.</p>
         {{/if}}
     </article>
 </section>

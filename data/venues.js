@@ -31,7 +31,7 @@ getVenueById(id) {
     });
 },
 
-createVenue(name, location, hours) {
+createVenue(name, location, style, description) {
 
     return validate.verifyString(name, "name").then(() => {
         return validate.verifyString(location)}).then(() => {
@@ -42,9 +42,9 @@ createVenue(name, location, hours) {
                         name: name,
                         location: location,
                         locationLatLong: {},
-                        hours: hours,
-                        style: "style", 
-                        description: "description"
+                        hours: "",
+                        style: style, 
+                        description: description
                     }            
                     return venueCollection.insertOne(newVenue).then((insertInfo) => {
                         if(insertInfo.insertedCount === 0) throw "Could not add venue with name " + name + " and location; " + location;
