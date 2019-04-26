@@ -7,6 +7,7 @@
     <title>Test Landing Page</title>
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <link rel="stylesheet" href="/public/site.css">
 
 </head>
@@ -71,7 +72,17 @@
                     </label> 
                     <button type="submit">Submit</button>            
                 </form>
+
+                <!--Form to return all venues-->
+                <form action="/users" method="GET" class="new-search-form">
+                    <label for="getAllUsers">
+                        View all Users:
+                        <button id="getAllUsers" type="submit">Submit</button> 
+                    </label>            
+                </form>
             </section>
+
+
 
             <!--Form to search for a venue by name-->
             <section class="findVenue">
@@ -88,7 +99,8 @@
                 <form action="/venues" method="GET" class="new-search-form">
                     <label for="getAllVenues">
                         View all Venues:
-                        <input id="getAllVenues" name="getAllVenues" type="submit">
+                        <!--input id="getAllVenues" name="getAllVenues" type="submit"-->
+                        <button id="getAllVenues" type="submit">Submit</button> 
                     </label>            
                 </form>
             </section>

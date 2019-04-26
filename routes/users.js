@@ -5,9 +5,27 @@ const router = express.Router();
 const data = require("../data");
 const userData = data.users;
 
+/*
   router.get("/", (req,res) => { 
     let route = path.resolve("static/peopleFinder.html");
     res.sendFile(route);
+  });
+  */
+
+ router.get("/", (req,res) => { 
+    userData.getAllUsers()
+    .then((users) => {
+        res.render("pages/users", {
+            title: "All Users",
+            users
+        })
+    }).catch(e => {
+        res.status(400);
+        res.render("pages/error", {
+            title: "Invalid",
+            error: e
+        });
+    });
   });
 
   router.post("/create", (req,res) => {
@@ -28,7 +46,7 @@ const userData = data.users;
 
   router.post("/", (req,res) => {
 
-    let searchTerm = req.body.userId
+    let searchTerm = req.body.userIdSearch
     validate.validateAndConvertId(searchTerm)
     .then(id => {
         if(!searchTerm.length||!id) {
