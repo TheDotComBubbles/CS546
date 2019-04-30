@@ -9,10 +9,11 @@
   },
   "author": "Brian Hartigan 10421547",
   "license": "ISC",
-    "dependencies": {
+  "dependencies": {
     "axios": "^0.18.0",
     "express": "^4.16.4",
     "express-handlebars": "^3.0.2",
+    "mongodb": "^3.2.3",
     "path": "^0.12.7"
-  }  
+  }
 }
