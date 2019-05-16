@@ -91,17 +91,19 @@ getUserByPhoneNumber(phoneNumber) {
     });
 },
 
-createUser(name, dob, email, phoneNumber) {
+createUser(fname, lname, email, phoneNumber, age, dob, ratedVenues) {
     return validate.verifyString(name, "name")
         .then(() => {
             return users()
             .then((userCollection) => {
                 let newUser = {
                     //_id: "",
-                    name: name,
-                    dob: dob,
+                    fname: fname,
+                    lname: lname,
                     email: email,
                     phoneNumber: phoneNumber,
+                    age: age,
+                    dob: dob,  
                     ratedVenues: []
                 }            
                 return userCollection.insertOne(newUser)
