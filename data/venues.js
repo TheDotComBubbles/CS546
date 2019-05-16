@@ -31,7 +31,59 @@ getVenueById(id) {
     });
 },
 
-createVenue(name, location, style, description) {
+getVenueByName(name) {   
+    return validate.verifyString(name)
+        .then(() => {
+            return venues()
+            .then(venueCollection => {
+                return venueCollection.findOne({"name": name })
+                .then(venue => {
+                if (!venue) throw "WARN: " + "Could not find venue with name " + name;
+                return venue;
+                });
+            });
+          }).catch((error) => {
+        console.log("ERROR: " + error);
+    });
+},
+
+getVenueByLocation(location) {   
+    return validate.verifyString(location)
+        .then(() => {
+            return venues()
+            .then(venueCollection => {
+                return venueCollection.findOne({"location": location })
+                .then(venue => {
+                if (!venue) throw "WARN: " + "Could not find venue with location " + location;
+                return venue;
+                });
+            });
+          }).catch((error) => {
+        console.log("ERROR: " + error);
+    });
+},
+
+getVenueByRating(rating) {   
+    rating.forEach(function(x) {
+        validate.verifyNum(x);
+    });
+
+    return venues()
+    .then(venueCollection => {
+        return venueCollection      
+            .find({ rating: { $in: rating } })
+            .toArray();
+        })
+        .then((venue) => {
+        if (!venue) throw "WARN: " + "Could not find venue with ratings in " + rating;
+        return venue;
+        })
+        .catch((error) => {
+            console.log("ERROR: " + error);
+        });
+},
+
+createVenue(name, location, style, description, rating) {
 
     return validate.verifyString(name, "name").then(() => {
         return validate.verifyString(location)}).then(() => {
@@ -44,7 +96,8 @@ createVenue(name, location, style, description) {
                         locationLatLong: {},
                         hours: "",
                         style: style, 
-                        description: description
+                        description: description,
+                        rating: rating
                     }            
                     return venueCollection.insertOne(newVenue).then((insertInfo) => {
                         if(insertInfo.insertedCount === 0) throw "Could not add venue with name " + name + " and location; " + location;
