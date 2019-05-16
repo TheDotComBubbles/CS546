@@ -29,12 +29,69 @@ getUserById(id) {
                 });
             });
           }).catch((error) => {
-        //Is Try Catch necessary here? 
         console.log("ERROR: " + error);
     });
 },
 
-createUser(name) {
+getUserByName(name) {
+    validate.verifyString(name)
+        return users()
+        .then(userCollection => {
+            return userCollection.findOne({ name: name })
+            .then(user => {
+            if (!user) throw "WARN: " + "Could not find user with name " + name;
+            return user;
+            });
+          }).catch((error) => { 
+        console.log("ERROR: " + error);
+    });
+},
+
+getUserByDOB(dob) {
+    validate.verifyString(dob)
+        return users()
+        .then(userCollection => {
+            return userCollection.findOne({ dob: dob })
+            .then(user => {
+            if (!user) throw "WARN: " + "Could not find user with dob " + dob;
+            return user;
+            });
+          }).catch((error) => { 
+        console.log("ERROR: " + error);
+    });
+},
+
+getUserByEmail(email) {
+    //add regex for email
+    validate.verifyString(email)
+        return users()
+        .then(userCollection => {
+            return userCollection.findOne({ email: email })
+            .then(user => {
+            if (!user) throw "WARN: " + "Could not find user with email " + email;
+            return user;
+            });
+          }).catch((error) => { 
+        console.log("ERROR: " + error);
+    });
+},
+
+getUserByPhoneNumber(phoneNumber) {
+    //add regex for phone number
+    validate.verifyString(phoneNumber)
+        return users()
+        .then(userCollection => {
+            return userCollection.findOne({ phoneNumber: phoneNumber })
+            .then(user => {
+            if (!user) throw "WARN: " + "Could not find user with phoneNumber " + phoneNumber;
+            return user;
+            });
+          }).catch((error) => { 
+        console.log("ERROR: " + error);
+    });
+},
+
+createUser(name, dob, email, phoneNumber) {
     return validate.verifyString(name, "name")
         .then(() => {
             return users()
@@ -42,7 +99,10 @@ createUser(name) {
                 let newUser = {
                     //_id: "",
                     name: name,
-                    likes: []
+                    dob: dob,
+                    email: email,
+                    phoneNumber: phoneNumber,
+                    ratedVenues: []
                 }            
                 return userCollection.insertOne(newUser)
                 .then((insertInfo) => {
