@@ -1,0 +1,19 @@
+<header>
+    <a href="/">Profile</a>
+    <a href="/">About Us</a>
+    <a href="/">Sign Out</a>
+</header>
+
+<main>
+    <form action="/search" method="POST">
+        <p>Search By:</p>
+        <label for="name">Name</label>
+        <input type="radio" id="name" name="searchtype" value="name">
+        <label for="location">Location</label>
+        <input type="radio" id="location" name="searchtype" value="location">
+        <label for="Rating">Rating</label>
+        <input type="radio" id="rating" name="searchtype" value="rating"><br>
+        <input type="text" name="searchstring"><br>
+        <button type="submit">Search</button>
+    </form>
+</main>

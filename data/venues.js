@@ -11,7 +11,7 @@ let exportedMethods = {
         .then((allVenues) => {
             if(allVenues===undefined) throw "No Venues Found";
             return allVenues;
-        });
+        })
     });
 },
 
