@@ -1,0 +1,29 @@
+{{!-- // name, location, style, description, rating --}}
+<header>
+    <nav>
+        <a href="/">Profile</a>
+        <a href="/">About Us</a>
+        <a href="/">Sign Out</a>
+    </nav>
+</header>
+
+<main>
+    <h1>{{title}}</h1>
+    <ul>
+        {{!-- replace with with each, instead of findone, findAll --}}
+        {{#with foundData}}
+            <li>
+                {{!-- <a href="/">{{name}}</a> --}}
+                <a href="/venues/{{_id}}">{{name}}</a>
+                <p>Location: {{location}}</p>
+                <p>Rating: {{rating}}</p>
+            </li>
+        {{/with}}
+    </ul>   
+
+    {{#if hasErrors}}
+        <p class="not-found">We're sorry, but no results were found for {{searchStr}}.</p>
+    {{/if}}
+ 
+
+</main>
