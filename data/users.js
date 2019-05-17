@@ -2,6 +2,7 @@ let validate = require("./objectValidation");
 //let v = require("./objectValidation");
 const mongoCollections = require("../config/collections");
 let users = mongoCollections.users;
+const bcrypt = require('bcrypt')
 
 let exportedMethods = {
  getAllUsers() {
@@ -91,30 +92,50 @@ getUserByPhoneNumber(phoneNumber) {
     });
 },
 
-createUser(fname, lname, email, phoneNumber, age, dob, ratedVenues) {
-    return validate.verifyString(name, "name")
-        .then(() => {
-            return users()
-            .then((userCollection) => {
-                let newUser = {
-                    //_id: "",
-                    fname: fname,
-                    lname: lname,
-                    email: email,
-                    phoneNumber: phoneNumber,
-                    age: age,
-                    dob: dob,  
-                    ratedVenues: []
-                }            
-                return userCollection.insertOne(newUser)
-                .then((insertInfo) => {
-                    if(insertInfo.insertedCount === 0) throw "Could not add user with name " + name;
-                    return this.getUserById(insertInfo.insertedId)
-                });
-            });
-        }).catch((error) => {
-            throw error;
-        })
-    }
+async create(firstName,lastName, email, phoneNumber, age, password, bday, ratedVenues) {
+       
+    if (!firstName|| typeof firstName != 'string') throw "You must provide a string of first name";
+
+    if (!lastName|| typeof lastName != 'string') throw "You must provide a string of last name";
+
+    if (!phoneNumber || typeof phoneNumber != 'string') throw "Please provide a proper 10 digit phone number";
+
+    if (!email|| typeof email != 'string') throw "You must provide a string of email";
+
+    if (!password|| typeof password != 'string') throw "You must provide a string of password";
+
+    if (!age|| typeof age != 'number') throw "Age should be number"
+   
+    const userCollection = await users();
+ 
+    var checkExist = await userCollection.find({email: email}).toArray();
+
+    if(checkExist.length>=1){
+       throw "Mail exists"
+    }else{
+
+    
+        var tmp = await bcrypt.hash(password, 10).then(function (data) {return data}).catch(e=> {throw e;});
+        let newUser = {
+            firstName: firstName,
+            lastName: lastName,
+            email: email,
+            phoneNumber: phoneNumber,
+            age: age,
+            hashedPassword: tmp,
+            bday: bday,
+            ratedVenues:[],
+
+            };
+            const insertInfo = await userCollection.insertOne(newUser);
+            if (insertInfo.insertedCount === 0) throw "Could not add user";
+
+            const newId = insertInfo.insertedId;
+            const user = await this.getUserById(newId);
+
+            return user
+       
+    } 
+  }
 }
 module.exports = exportedMethods;

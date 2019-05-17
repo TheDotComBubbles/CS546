@@ -14,7 +14,7 @@ const constructorMethod = app => {
   });
 
   app.use("*", (req, res) => {
-    res.render("pages/workInProgress", {})
+    res.sendFile(path.resolve("static/login.html"));
   });
 };
 
