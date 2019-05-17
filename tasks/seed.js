@@ -9,7 +9,7 @@ const main = async () => {
     
     // name, location, style, description, rating
 
-    const loc1 = await venues.createVenue("Saffron", "Ahmedabad", "Indian, Continental", "Blah blah", "4.7")
+    const loc1 = await venues.createVenue("Saffron", "Ahmedabad", "Indian, Continental", "Blah blah", "4")
     console.log("added a venue", loc1)
     const loc2 = await venues.createVenue("XYzzz", "Mumbai", "Italian", "zoop zoop", "2")
     console.log("added a venue", loc2)

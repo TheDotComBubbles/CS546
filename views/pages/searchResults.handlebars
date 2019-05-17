@@ -9,20 +9,22 @@
 
 <main>
     <h1>{{title}}</h1>
+    <h3>{{type}} : {{searchStr}}</h3>
     <ul>
         {{!-- replace with with each, instead of findone, findAll --}}
-        {{#with foundData}}
+        {{!-- send all data as array --}}
+        {{#each foundData}}
             <li>
                 {{!-- <a href="/">{{name}}</a> --}}
                 <a href="/venues/{{_id}}">{{name}}</a>
                 <p>Location: {{location}}</p>
                 <p>Rating: {{rating}}</p>
             </li>
-        {{/with}}
+        {{/each}}
     </ul>   
 
     {{#if hasErrors}}
-        <p class="not-found">We're sorry, but no results were found for {{searchStr}}.</p>
+        <p class="not-found">We're sorry, but no results were found for {{type}} {{searchStr}}.</p>
     {{/if}}
  
 
