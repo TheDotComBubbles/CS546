@@ -1,76 +1,29 @@
 const express = require("express");
 const validate = require("../data/objectValidation");
-const path = require("path");
 const router = express.Router();
 const data = require("../data");
-const venueData = data.venues;
+const venue = data.venues;
+const ObjectID = require("mongodb").ObjectID
 
-  router.get("/", (req,res) => { 
-    venueData.getAllVenues()
-    .then((venues) => {
-        res.render("pages/venues", {
-            title: "All Venues",
-            venues
-        })
-    }).catch(e => {
-        res.status(400);
-        res.render("pages/error", {
-            title: "Invalid",
-            error: e
-        });
-    });
-  });
+router.get("/:venueid", async(req, res) => {
+    try {
+        console.log("In Venues GET route")
+        let venueId = ObjectID(req.params.venueid)
+        const venueData = await venue.getVenueById(venueId)
+        console.log("Venue found: ", venueData)
+        res.render('pages/details',{title: "Venue Details", foundName: venueData.name, details: venueData });
+   
+    } catch (error) {
+        res.status(500).json({error: error})
+    }
+})
 
-  
-  router.post("/create", (req,res) => {
-//
-//see postMessage.js from lecture 7 assignment
-    return venueData.createVenue(
-            req.body.name,
-            req.body.location,
-            req.body.style,
-            req.body.description
-    ).then((venue) => {
-        res.render("pages/venues", {
-            title: "Thanks for adding the Venue " + venue.name,
-            id: venue._id,
-            venue
-        });
-    }).catch(e => {
-        res.status(400);
-        res.render("pages/error", {
-            title: "Invalid",
-            error: e
-        });
-    });
-});
-
-  router.post("/", (req,res) => {
-
-    let searchTerm = req.body.venueName
-    validate.verifyString(searchTerm)
-    .then(name => {
-        if(!searchTerm.length||!name) {
-            res.status(400);
-            res.render("pages/error", {
-                title: "Invalid",
-                searchTerm: searchTerm
-            });
-        }
-        return venueData.getVenueByName(searchTerm)
-    }).then((venue) => {
-        res.render("pages/venue", {
-            title: "Venues",
-            venueName: user._id,
-            user
-        });
-    }).catch(e => {
-        res.status(400);
-        res.render("pages/error", {
-            title: "Invalid",
-            searchTerm: searchTerm
-        });
-    });
-});
+router.post("/:venueid", async (req, res) => {
+    //add review to the user and venue database
+    //user db -->   1. search by user id
+    //              2. add venueid in the array
+    //venue db -->  1. search by venueid
+    //              2. add userid, review, rating as object in review
+})
 
 module.exports = router;

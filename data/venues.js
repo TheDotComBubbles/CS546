@@ -11,7 +11,7 @@ let exportedMethods = {
         .then((allVenues) => {
             if(allVenues===undefined) throw "No Venues Found";
             return allVenues;
-        });
+        })
     });
 },
 
@@ -36,7 +36,7 @@ getVenueByName(name) {
         .then(() => {
             return venues()
             .then(venueCollection => {
-                return venueCollection.findOne({"name": name })
+                return venueCollection.find({"name": name}).toArray()
                 .then(venue => {
                 if (!venue) throw "WARN: " + "Could not find venue with name " + name;
                 return venue;
