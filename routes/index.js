@@ -8,6 +8,8 @@ const constructorMethod = app => {
   app.use("/users", userRoutes);
   app.use("/venues",venuesRoutes);
   app.use("/search", searchRoutes);
+  
+  //add userid as a tag in the below route
   app.get("/home", async (req, res) => {
     res.render("pages/home", {title:"Home"})
 })

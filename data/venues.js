@@ -36,7 +36,7 @@ getVenueByName(name) {
         .then(() => {
             return venues()
             .then(venueCollection => {
-                return venueCollection.findOne({"name": name})
+                return venueCollection.find({"name": name}).toArray()
                 .then(venue => {
                 if (!venue) throw "WARN: " + "Could not find venue with name " + name;
                 return venue;
@@ -52,7 +52,7 @@ getVenueByLocation(location) {
         .then(() => {
             return venues()
             .then(venueCollection => {
-                return venueCollection.findOne({"location": location })
+                return venueCollection.find({"location": location }).toArray()
                 .then(venue => {
                 if (!venue) throw "WARN: " + "Could not find venue with location " + location;
                 return venue;
