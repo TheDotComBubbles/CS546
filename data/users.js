@@ -136,6 +136,40 @@ async create(firstName, lastName, email, phone, age, password, bday) {
             return user
        
     } 
-  }
+  },
+
+  async login(email, password){
+    console.log('step 1')
+    var obj = {}
+    const userCollection = await users();
+    var user = await userCollection.find({ email: email }).toArray()
+    if(user.length < 1){
+        throw "Email doesn\'t exist! Please sign up"
+        
+    }
+    console.log("User's password")
+    console.log(user[0])
+    var tmp = await bcrypt.compare(password, user[0].hashedPassword).then(function (data) {return data}).catch(e=> {throw e;});
+    console.log("tmp")
+    console.log(tmp)
+    if(tmp != true){
+        throw "Your email or password doesn't exist!"
+    }else{
+        const token = jwt.sign({
+            email: user[0].email,
+            userId: user[0]._id
+        },
+        process.env.JWT_KEY,
+            {
+                expiresIn: "1h"
+            }
+        )
+        obj["token"]=token
+        obj["user"]=user
+        console.log("obj")
+        console.log(obj)
+        return obj  
+    }
+},
 }
 module.exports = exportedMethods;

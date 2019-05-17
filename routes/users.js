@@ -93,6 +93,32 @@ router.get("/registration", checkCookie, async (req, res) => {
       // })
   }
 });
+
+router.post("/login", async (req, res) => {
+  try{
+    console.log(req.body)
+      if(req.body.email ==  '' || req.body.password ==  '' ) throw 'Please fill all fields'
+        
+        const user = await userData.login(req.body.email, req.body.password)
+       
+        
+        res.cookie('token', user['token']);
+        res.cookie('userid', user['user'][0]._id);
+        res.status(200).sendFile(path.resolve("static/login.html"))     
+      
+    
+       
+      
+  }catch(e){
+      res.status(400).sendFile(path.resolve("static/login.html"),{
+          hasErrors:true,
+          error : e,
+      })
+      // res.status(400).json({
+      //   error:e
+      // })
+  }
+});
 //   router.post("/", (req,res) => {
 
 //     let searchTerm = req.body.userIdSearch
