@@ -47,6 +47,25 @@ getVenueByName(name) {
     });
 },
 
+getVenuesBySearchString(searchString) {   
+    let rx = new RegExp(searchString)
+    console.log("\n\n" + rx + "\n\n\n\n");
+    return validate.verifyString(searchString)
+        .then(() => {
+            return venues()
+            .then(venueCollection => {
+                return venueCollection.find({ "name": { $regex: rx }}).toArray()
+                .then(venueMatches => {
+                    console.log("\n\n\n Here are the venues: \n" + venueMatches);
+                if (!venueMatches) throw "WARN: " + "Could not find venue with search string " + searchString;
+                return venueMatches;
+                });
+            })
+          }).catch((error) => {
+        console.log("ERROR: " + error);
+    });
+},
+
 getVenueByLocation(location) {   
     return validate.verifyString(location)
         .then(() => {
