@@ -43,6 +43,7 @@ router.get("/registration", checkCookie, async (req, res) => {
 
 
   router.post("/registartion", async (req,res) =>{
+    try{
    console.log(req.body)
           if(req.body.fname ==  '' || req.body.lname == '' || req.body.phone == '' || req.body.email == '' || req.body.password == '' || req.body.age == '' || req.body.bday == '') throw 'Please fill all fields'
          
@@ -66,12 +67,32 @@ router.get("/registration", checkCookie, async (req, res) => {
           if(format.test(req.body.password)) throw "Don't contain special character like !@#$%^&*.,<>/\'\";:? in password";
      
           const user = await userData.create(req.body.fname, req.body.lname, req.body.email, req.body.phone, req.body.age, req.body.password, req.body.bday)
-          res.status(200).sendFile(path.resolve("static/login.html")), {
-
-            title:"login Page",
-         
-          };
-  });
+          const token = jwt.sign({/////////put tolen in the data
+            email: user.email ,
+            userId: user._id
+          },
+          process.env.JWT_KEY,
+              {
+                  expiresIn: "1h"
+              }
+          )
+     
+          res.cookie('token', token);
+          res.cookie('userid', user._id);
+       
+          res.status(200).sendFile(path.resolve("static/login.html"))     
+          // res.status(200).render("Component/homepage", {
+          //   title:"Home Page",
+          //   user: user
+          // })    
+        
+    }catch(e){
+      res.status(400).sendFile(path.resolve("static/registration.html")) 
+      // res.status(400).json({
+      //   error:e
+      // })
+  }
+});
 //   router.post("/", (req,res) => {
 
 //     let searchTerm = req.body.userIdSearch

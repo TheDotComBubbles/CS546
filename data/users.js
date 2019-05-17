@@ -92,7 +92,7 @@ getUserByPhoneNumber(phoneNumber) {
     });
 },
 
-async create(firstName,lastName, email, phoneNumber, age, password, bday, ratedVenues) {
+async create(firstName, lastName, email, phone, age, password, bday) {
        
     if (!firstName|| typeof firstName != 'string') throw "You must provide a string of first name";
 
@@ -104,7 +104,7 @@ async create(firstName,lastName, email, phoneNumber, age, password, bday, ratedV
 
     if (!password|| typeof password != 'string') throw "You must provide a string of password";
 
-    if (!age|| typeof age != 'number') throw "Age should be number"
+    // if (!age|| typeof age != 'number') throw "Age should be number"
    
     const userCollection = await users();
  
@@ -120,7 +120,7 @@ async create(firstName,lastName, email, phoneNumber, age, password, bday, ratedV
             firstName: firstName,
             lastName: lastName,
             email: email,
-            phoneNumber: phoneNumber,
+            phone: phone,
             age: age,
             hashedPassword: tmp,
             bday: bday,
