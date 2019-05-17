@@ -91,7 +91,7 @@ getUserByPhoneNumber(phoneNumber) {
     });
 },
 
-createUser(name, dob, email, phoneNumber) {
+createUser(fname, lname, email, phoneNumber, age, dob, ratedVenues) {
     return validate.verifyString(name, "name")
         .then(() => {
             return users()
@@ -102,6 +102,8 @@ createUser(name, dob, email, phoneNumber) {
                     dob: dob,
                     email: email,
                     phoneNumber: phoneNumber,
+                    age: age,
+                    dob: dob,
                     ratedVenues: []
                 }            
                 return userCollection.insertOne(newUser)
