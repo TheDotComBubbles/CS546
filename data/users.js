@@ -104,7 +104,7 @@ async create(firstName, lastName, email, phone, age, password, bday) {
 
     if (!password|| typeof password != 'string') throw "You must provide a string of password";
 
-    // if (!age|| typeof age != 'number') throw "Age should be number"
+    if (!age|| typeof age != 'number') throw "Age should be number"
    
     const userCollection = await users();
  
