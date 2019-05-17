@@ -103,7 +103,7 @@ createUser(fname, lname, email, phoneNumber, age, dob, ratedVenues) {
                     email: email,
                     phoneNumber: phoneNumber,
                     age: age,
-                    dob: dob,  
+                    dob: dob,
                     ratedVenues: []
                 }            
                 return userCollection.insertOne(newUser)
