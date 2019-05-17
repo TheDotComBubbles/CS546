@@ -116,9 +116,11 @@ createVenue(name, location, style, description, rating) {
                         hours: "",
                         style: style, 
                         description: description,
-                        rating: rating
+                        rating: rating,
+                        reviews: []
                     }            
-                    return venueCollection.insertOne(newVenue).then((insertInfo) => {
+                    return venueCollection.insertOne(newVenue)
+                    .then((insertInfo) => {
                         if(insertInfo.insertedCount === 0) throw "Could not add venue with name " + name + " and location; " + location;
                         return this.getVenueById(insertInfo.insertedId)
                 });
@@ -128,9 +130,33 @@ createVenue(name, location, style, description, rating) {
     });
 },
 
+addVenueReview(venueId, userId, review) {
+    return validate.verifyString(review).then(()=> {
+        return validate.validateAndConvertId(venueId).then((venueObjectId)=> {
+            return validate.validateAndConvertId(userId).then((userObjectId)=> {
+                return venues().then(venueCollection=> {
+                    return venueCollection.updateOne(
+                        { _id: venueObjectId }, 
+                        { $push: { 
+                            userID: userObjectId, 
+                            review: review 
+                        }}).then((insertInfo) => {
+                            return this.getVenueById(venueObjectId).then(result => {
+                                    if (!result) throw "WARN: " + "Could not find venue with id " + id;
+                                    return result;
+                            });
+                        });
+                    });
+                });
+            });
+        }).catch((error) => {
+            throw "Ran into an error " + error;
+    });
+},
+
 getVenueByHours(lowerRange, upperRange, dayOfTheWeek) {
-    v.verifyNumber(lowerRange).then(() => 
-        v.verifyNumber(upperRange)).then(() => {
+    validate.verifyNumber(lowerRange).then(() => 
+        validate.verifyNumber(upperRange)).then(() => {
             return venues().then((venueCollection)=> {
                 return venueCollection.find({
                     $and: [
@@ -145,7 +171,7 @@ getVenueByHours(lowerRange, upperRange, dayOfTheWeek) {
     },
 
 updateVenueStyle(id, newStyle) {
-        v.verifyString(style).then(()=> {
+        validate.verifyString(style).then(()=> {
             return venues()
             .update({ _id: id }, { $set: { "style": newStyle } })
             .then(function() {
