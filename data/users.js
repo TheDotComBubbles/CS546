@@ -98,7 +98,7 @@ async create(firstName, lastName, email, phone, age, password, bday) {
 
     if (!lastName|| typeof lastName != 'string') throw "You must provide a string of last name";
 
-    if (!phoneNumber || typeof phoneNumber != 'string') throw "Please provide a proper 10 digit phone number";
+    if (!phone || typeof phone != 'string') throw "Please provide a proper 10 digit phone number";
 
     if (!email|| typeof email != 'string') throw "You must provide a string of email";
 

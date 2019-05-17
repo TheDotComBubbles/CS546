@@ -66,7 +66,7 @@ router.get("/registration", checkCookie, async (req, res) => {
           var format = /[ !@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]/;
           if(format.test(req.body.password)) throw "Don't contain special character like !@#$%^&*.,<>/\'\";:? in password";
      
-          const user = await userData.create(req.body.fname, req.body.lname, req.body.email, req.body.phone, req.body.age, req.body.password, req.body.bday)
+          const user = await userData.create(req.body.fname, req.body.lname, req.body.email, req.body.phone, Number(req.body.age), req.body.password, req.body.bday)
           // const token = jwt.sign({/////////put tolen in the data
           //   email: user.email ,
           //   userId: user._id
