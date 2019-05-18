@@ -7,17 +7,17 @@ const jwt = require('jsonwebtoken')
 
 
 let exportedMethods = {
-//  getAllUsers() {
+  getAllUsers() {
 
-//     return users()
-//     .then((userCollection) => {
-//         return userCollection.find({}).toArray()
-//         .then((allUsers) => {
-//             if(allUsers===undefined) throw "No Users Found";
-//             return allUsers;
-//         });
-//     });
-// },
+     return users()
+     .then((userCollection) => {
+         return userCollection.find({}).toArray()
+         .then((allUsers) => {
+             if(allUsers===undefined) throw "No Users Found";
+             return allUsers;
+         });
+     });
+ },
 
 async getUserById(id) {
        
@@ -94,6 +94,31 @@ async getUserByEmail(email) {
 //         console.log("ERROR: " + error);
 //     });
 // },
+
+async addRatedVenue(userId, venueId, venueName) {
+    try {
+        let userObjectId = await validate.validateAndConvertId(userId);
+        let venueObjectId = await validate.validateAndConvertId(venueId); 
+        await validate.verifyString(venueName);
+
+        const userCollection = await users();
+
+        let result = await userCollection.updateOne(
+            { _id: userObjectId }, 
+            { $push: {ratedVenues: {
+                venueId: venueObjectId, 
+                name: venueName
+            }}})
+
+        if(result.modifiedCount <= 0) throw "Unable to update User Collection with the new review. Confirm the user exists."
+
+        let user = this.getUserById(userObjectId);
+        return user
+    }
+    catch(error) {
+        console.log(error);
+    }
+},
 
 async create(firstName, lastName, email, phone, age, password, bday) {
        
