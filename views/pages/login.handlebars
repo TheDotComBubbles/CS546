@@ -21,6 +21,12 @@ function hideURLbar(){ window.scrollTo(0,1); } </script>
 <!--//online fonts-->
 </head>
 <body>
+	{{#if success_messages }}
+				<div class="alert alert-success">{{success_messages}}</div>
+				{{/if}}
+				{{#if error_messages }}
+				<div class="alert alert-danger">{{error_messages}}</div>
+				{{/if}}
 	<h1>f<span>oo</span>d c<span>o</span>urt l<span>o</span>g<span>in</span> f<span>o</span>rm</h1>
 	<div class="wthree-form">
 			<h2>Fill out the form below to login</h2>

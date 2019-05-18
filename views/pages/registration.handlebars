@@ -21,13 +21,19 @@ function hideURLbar(){ window.scrollTo(0,1); } </script>
 <!--//online fonts-->
 </head>
 <body>
+	{{#if success_messages }}
+	<div class="alert alert-success">{{success_messages}}</div>
+	{{/if}}
+	{{#if error_messages }}
+	<div class="alert alert-danger">{{error_messages}}</div>
+	{{/if}}
 	<h1>f<span>oo</span>d c<span>o</span>urt R<span>e</span>g<span>is</span>t<span>ra</span>ti<span>on</span> f<span>o</span>rm</h1>
 	<div class="wthree-form">
 			<h2>Fill out the form below to register</h2>
 		<div class="w3l-login form">
-			<form action="/users/registartion" method="post">
+			<form action="/users/registration" method="post">
 				<div class="form-sub-w3">
-					<input type="text" name="fname" placeholder="FirstName" required="" size="50" style="height: 30px;"/>
+					<input type="text" name="fname" placeholder="FirstName" required="" size="60" style="height: 30px;"/>
 				</div>
 				<div class="form-sub-w3">
 					<input type="text" name="lname" placeholder="LastName" required="" size="50" style="height: 30px;"/>
@@ -41,35 +47,21 @@ function hideURLbar(){ window.scrollTo(0,1); } </script>
 				<div class="form-sub-w3">
 					<input type="number" name="age" placeholder="Age" required=""/>
 				</div>
+                <div class="form-sub-w3">
+					<input type="date" name="bday" placeholder="BirthDay" required=""  style="font-size: 1rem"/>
+				</div>	
 				<div class="form-sub-w3">
 					<input type="password" name="password" placeholder="Password" required="" size="50" style="height: 30px;"/>
 				</div>
 				<div class="form-sub-w3">
 					<input type="password" name="confirm" placeholder="Enter Password again" required="" size="50" style="height: 30px;"/>
 				</div>
-				<div class="form-sub-w3">
-					<input type="date" name="bday" placeholder="BirthDay" required=""  style="font-size: 2rem"/>
-				</div>	
 				<div class="submit-agileits">
 					<input type="submit" value="Register">
 				</div>
-
-				{{#if hasErrors }}
-                <div class="form-group">
-                    <ul class="error-list" style="padding-inline-start: 0px;">
-        
-                        <li style="list-style: none;">
-                        <p class="not-found">{{error}}</p>
-                        </li>
-                    </ul>
-                </div>
-                {{/if}}
-                <div class="form-group">
-                    <button type="submit" class="btn_signup">Submit</button>
-                </div>
                 <br>
 				<div>
-					<a href="login.html"> Already Have an account?</a>
+					<a href="/users/logon"> Already Have an account?</a>
 				</div>
 			 </form>
 		</div>

@@ -116,9 +116,11 @@ createVenue(name, location, style, description, rating) {
                         hours: "",
                         style: style, 
                         description: description,
-                        rating: rating
+                        rating: rating,
+                        reviews: []
                     }            
-                    return venueCollection.insertOne(newVenue).then((insertInfo) => {
+                    return venueCollection.insertOne(newVenue)
+                    .then((insertInfo) => {
                         if(insertInfo.insertedCount === 0) throw "Could not add venue with name " + name + " and location; " + location;
                         return this.getVenueById(insertInfo.insertedId)
                 });
@@ -128,9 +130,65 @@ createVenue(name, location, style, description, rating) {
     });
 },
 
+addVenueReview(venueId, userId, review, rating) {
+    return validate.verifyString(review).then(()=> {
+        return validate.validateAndConvertId(venueId).then((venueObjectId)=> {
+            return validate.validateAndConvertId(userId).then((userObjectId)=> {
+                return validate.verifyNum(rating).then(()=> {
+                    return venues().then(venueCollection=> {
+                        return venueCollection.updateOne(
+                            { _id: venueObjectId }, 
+                            { $push: {reviews: {
+                                userID: userObjectId, 
+                                review: review,
+                                rating: rating
+                            }}}).then((insertInfo) => {
+                                return this.getVenueById(venueObjectId).then(result => {
+                                        if (!result) throw "WARN: " + "Could not find venue with id " + id;
+                                        return result;
+                                })
+                                .then((updatedRecord)=> {
+                                    console.log(venueObjectId);
+                                    if(insertInfo.insertedCount === 0) throw "Could not complete";
+                                    return this.updateVenueAggregateRating(venueObjectId)
+                                })
+                            });
+                        });
+                    });
+                });
+            });
+        }).catch((error) => {
+            throw "Ran into an error " + error;
+    });
+},
+
+updateVenueAggregateRating(venueId) {
+    return validate.validateAndConvertId(venueId).then((venueObjectId)=> {
+        return this.getVenueById(venueObjectId).then((venue) => {
+            return ratingReducer(venue).then(aggRating => {            
+                return venues().then(venuesCollection => {
+                    return venuesCollection.updateOne(
+                        { _id: venueObjectId }, 
+                        { $set: { "rating": aggRating } 
+                        }).then((result) => {
+                        //console.log(result);
+                            return this.getVenueById(venueObjectId).then(result => {
+                                if (!result) throw "WARN: " + "Could not find venue with id " + id;
+                                return result;
+                            });
+                        });
+                    });
+                });
+            })
+        }).catch((error) => {
+            throw error;
+    });
+},
+
+/*
 getVenueByHours(lowerRange, upperRange, dayOfTheWeek) {
-    v.verifyNumber(lowerRange).then(() => 
-        v.verifyNumber(upperRange)).then(() => {
+    validate.verifyNumber(lowerRange).then(() => 
+        validate.verifyNumber(upperRange)).then(() => {
             return venues().then((venueCollection)=> {
                 return venueCollection.find({
                     $and: [
@@ -143,9 +201,10 @@ getVenueByHours(lowerRange, upperRange, dayOfTheWeek) {
             })
         })
     },
+*/
 
 updateVenueStyle(id, newStyle) {
-        v.verifyString(style).then(()=> {
+        validate.verifyString(style).then(()=> {
             return venues()
             .update({ _id: id }, { $set: { "style": newStyle } })
             .then(function() {
@@ -156,6 +215,24 @@ updateVenueStyle(id, newStyle) {
 }
 
 module.exports = exportedMethods;
+
+
+async function ratingReducer(venue) {
+    console.log(venue.reviews.length);
+    let len =  venue.reviews.length 
+
+    console.log("\n\nLength: \n\n" + len + "\n\n\n");
+    let sum = 0;
+
+    venue.reviews.forEach((x) => {
+        console.log(x.rating);
+        sum = sum + x.rating
+    });
+
+    let aggRating = (sum/len);
+    console.log("Aggregate Rating: " + aggRating);
+    return aggRating;
+}
 
 
 
