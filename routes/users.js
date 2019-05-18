@@ -35,7 +35,18 @@ const bcrypt = require('bcrypt')
 router.get("/registration", checkCookie, async (req, res) => {
   console.log("sign up")
   req.flash('error','')
-  res.render("pages/registration",{error:false})
+  res.status(200).render("pages/registration",{error:false})
+});
+
+router.get("/logout", checkCookie, async (req, res) => {
+  console.log("sign out")
+  
+  res.status(200).render("pages/login")
+});
+
+router.get("/profile", checkCookie, async (req, res) => {
+  console.log("profile")
+  res.status(200).render("pages/profile")
 });
 
 router.get("/logon", checkCookie, async (req, res) => {
@@ -45,6 +56,28 @@ router.get("/logon", checkCookie, async (req, res) => {
   res.status(200).render("pages/login", {
 
     title:"Signup Page",
+ 
+  });
+});
+
+router.get("/logout", checkCookie, async (req, res) => {
+  console.log("sign in")
+ 
+
+  res.status(200).render("pages/login", {
+
+    title:"Signup Page",
+ 
+  });
+});
+
+router.get("/about", checkCookie, async (req, res) => {
+  console.log("sign in")
+ 
+
+  res.status(200).render("pages/aboutUS", {
+
+    title:"AboutUs",
  
   });
 });
@@ -75,6 +108,7 @@ router.get("/logon", checkCookie, async (req, res) => {
           if(format.test(req.body.password)) throw "Don't contain special character like !@#$%^&*.,<>/\'\";:? in password";
      
           const user = await userData.create(req.body.fname, req.body.lname, req.body.email, req.body.phone, Number(req.body.age), req.body.password, req.body.bday)
+          // console.log(user)
           // const token = jwt.sign({/////////put tolen in the data
           //   email: user.email ,
           //   userId: user._id
