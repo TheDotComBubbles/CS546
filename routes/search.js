@@ -1,8 +1,4 @@
 const express = require("express");
-<<<<<<< HEAD
-=======
-const validate = require("../data/objectValidation");
->>>>>>> 970267a70fe7995174022fb3fe3d395e30194c5f
 const router = express.Router();
 const data = require("../data");
 const venueData = data.venues;
