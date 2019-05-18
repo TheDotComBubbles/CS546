@@ -19,7 +19,7 @@ const constructorMethod = app => {
   });
 
   app.use("*", (req, res) => {
-    res.render("pages/workInProgress", {})
+    res.render("pages/home", {})
   });
 };
 

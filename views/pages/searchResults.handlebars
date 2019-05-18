@@ -22,9 +22,13 @@
         {{/each}}
     </ul>   
 
-    {{#if hasErrors}}
-        <p class="not-found">We're sorry, but no results were found for {{type}} {{searchStr}}.</p>
-    {{/if}}
- 
+    <div id="error-container"></div>
 
+    {{#if hasErrors}}
+        <p class="not-found">We're sorry, but no results were found for "{{type}} : {{searchStr}}".</p>
+    {{/if}}
 </main>
+
+<footer>
+    <a href="/home">Make another Search</a>
+</footer>

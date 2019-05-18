@@ -28,7 +28,7 @@
     
     <section>
         <p>Write your review here:</p>
-        <form method="post">
+        <form method="post" id="review-form" action="/venues/{{venueID}}/reviewadded">
             <label for="rating">Rating</label>
             <select name="rating" id="rating" required>
                 <option value="" selected disabled hidden>Choose here</option>
@@ -39,9 +39,18 @@
                 <option value="5">Awesome</option>
             </select>
             <label for="content">Review</label>
-            <input type="text" name="content" id="content" placeholder="Add your review here" required>
+            <input type="text" name="content" id="content" placeholder="Add your review here">
             <button type="submit" id="submit review">Submit Review</button>
         </form>
-    </section>
-    
+
+        <div id="message-container"></div>
+    </section>    
+
 </main>
+
+<footer>
+    <a href="/home">Make another Search</a>
+</footer>
+<script src="https://code.jquery.com/jquery-2.2.4.min.js" integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44="
+        crossorigin="anonymous"></script>
+<script src="/public/frontendJS/review.js"></script>
