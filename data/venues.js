@@ -146,7 +146,12 @@ addVenueReview(venueId, userId, review, rating) {
                                 return this.getVenueById(venueObjectId).then(result => {
                                         if (!result) throw "WARN: " + "Could not find venue with id " + id;
                                         return result;
-                                });
+                                })
+                                .then((updatedRecord)=> {
+                                    console.log(venueObjectId);
+                                    if(insertInfo.insertedCount === 0) throw "Could not complete";
+                                    return this.updateVenueAggregateRating(venueObjectId)
+                                })
                             });
                         });
                     });
@@ -157,6 +162,30 @@ addVenueReview(venueId, userId, review, rating) {
     });
 },
 
+updateVenueAggregateRating(venueId) {
+    return validate.validateAndConvertId(venueId).then((venueObjectId)=> {
+        return this.getVenueById(venueObjectId).then((venue) => {
+            return ratingReducer(venue).then(aggRating => {            
+                return venues().then(venuesCollection => {
+                    return venuesCollection.updateOne(
+                        { _id: venueObjectId }, 
+                        { $set: { "rating": aggRating } 
+                        }).then((result) => {
+                        //console.log(result);
+                            return this.getVenueById(venueObjectId).then(result => {
+                                if (!result) throw "WARN: " + "Could not find venue with id " + id;
+                                return result;
+                            });
+                        });
+                    });
+                });
+            })
+        }).catch((error) => {
+            throw error;
+    });
+},
+
+/*
 getVenueByHours(lowerRange, upperRange, dayOfTheWeek) {
     validate.verifyNumber(lowerRange).then(() => 
         validate.verifyNumber(upperRange)).then(() => {
@@ -172,6 +201,7 @@ getVenueByHours(lowerRange, upperRange, dayOfTheWeek) {
             })
         })
     },
+*/
 
 updateVenueStyle(id, newStyle) {
         validate.verifyString(style).then(()=> {
@@ -185,6 +215,24 @@ updateVenueStyle(id, newStyle) {
 }
 
 module.exports = exportedMethods;
+
+
+async function ratingReducer(venue) {
+    console.log(venue.reviews.length);
+    let len =  venue.reviews.length 
+
+    console.log("\n\nLength: \n\n" + len + "\n\n\n");
+    let sum = 0;
+
+    venue.reviews.forEach((x) => {
+        console.log(x.rating);
+        sum = sum + x.rating
+    });
+
+    let aggRating = (sum/len);
+    console.log("Aggregate Rating: " + aggRating);
+    return aggRating;
+}
 
 
 
