@@ -104,7 +104,7 @@ async addRatedVenue(userId, venueId, venueName) {
 
         let result = await userCollection.updateOne(
             { _id: userObjectId }, 
-            { $push: {userReviews: {
+            { $push: {ratedVenues: {
                 venueId: venueObjectId, 
                 name: venueName
             }}})
