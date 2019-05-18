@@ -1,7 +1,5 @@
 * {
     box-sizing: border-box;
-    color: white;
-
   }
 
 html {
@@ -52,83 +50,69 @@ label {
 form {
     padding: 2%;
 }
-
-button {
-    color: black;
-    margin: 2%
-}
-
-p {
-    font-style: italic;
-}
-
-footer {
-    border-top: 1px dashed white;
-    padding-top: 5%;
+  
+  body {
+    background: #C5E9E1;
+    font-family: Georgia, Cambria, "Times New Roman", Times, serif;
+    color: #222222
+  }
+  
+  main {
+    max-width: 75%;
+    margin: auto;
+  }
+  
+  header {
+    border-bottom: 1px solid #afafaf;
+  }
+  
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    color:rgb(3, 30, 54);
+    margin-bottom: 5px;
+  }
+  
+  h1 {
+    font-size: 2rem;
+    text-align: center
+  }
+  
+  h2 {
     text-align: center;
-    margin-top: 5%;
-    /*position: fixed; */
-    bottom: 5%;
-}
-
-dt {
-    font-weight: bold;
-}
-
-dd {
-    margin: 0;
-    padding: 0 0 1% 0;
-    text-indent: 1em
-}
-
-.collapsible {
-    background-color: black;
-    border: solid;
-    border-color: white;
-    color: white;
-    cursor: pointer; 
-    padding: 2%;
-    width: 100%;
-    border: white;
-    text-align: left;
-    outline:white;
-    font-size: 2 rem;
-    border-spacing: 2%, 2%, 2%, 2%;
-    border-collapse: separate;
-}
-
-.active, .collapsible:hover {
-    background-color: black;
-    border: solid;
-    border-color: white;
-    width: 100%;
-    padding: 2%;
-    border-collapse: separate;
-}
-
-.content {
-
-    padding: 2%;
-    display: none;
-    overflow: hidden;
-    background-color: black;
-    width: 100%;
-    border-color: white;
-    border: solid;
-    border-spacing: 2%, 2%, 2%, 2%;
-    border-collapse: separate;
-}
-
-img {
-    max-width: 80%;
-    height: auto;
-    display: block;
-    margin-left: auto;
-    margin-right: auto;
+    font-size: 1.5rem;
   }
 
-.centeredText {
-    margin-left: auto;
-    margin-right: auto;
-    max-width: 80%
-}
+  p {
+    font-size: 1rem;
+    line-height: 2;
+  }
+  
+  .not-found, .error{
+    color: #FF3F1B;
+  }  
+
+  footer{
+    text-align: "center"
+  }
+
+  dt{
+    font-family: Georgia, Cambria, "Times New Roman", Times, serif;
+    font-weight: bold;
+    font-variant: small-caps;
+  }
+
+  dt, dd{
+    color: #222222;
+    font-family: Georgia, Cambria, "Times New Roman", Times, serif;
+
+  }
+
+  nav{
+      color: #222222;
+    font-family: Georgia, Cambria, "Times New Roman", Times, serif;
+
+  }

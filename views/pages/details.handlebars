@@ -1,10 +1,9 @@
-<header>
-    <nav>
-        <a href="/">Profile</a>
-        <a href="/">About Us</a>
-        <a href="/">Sign Out</a>
-    </nav>
-</header>
+
+
+        <a href="/users/about">About Us</a>
+        <a href="/users/logout">Sign Out</a>
+
+
 
 <main>
     <section>
@@ -38,7 +37,7 @@
     
     <section>
         <p>Write your review here:</p>
-        <form method="post" id="review-form" data-venueId={{venueID}} action="/venues/{{venueID}}/reviewadded">
+        <form method="post" id="review-form" data-venueId={{venueID}} data-userId = {{userId}} action="/venues/{{userId}}/{{venueID}}/reviewadded">
             <label for="rating">Rating</label>
             <select name="rating" id="rating" required>
                 <option value="" selected disabled hidden>Choose here</option>
@@ -63,7 +62,7 @@
 </main>
 
 <footer>
-    <a href="/home">Make another Search</a>
+    <a href="/{{userId}}/home">Make another Search</a>
 </footer>
     
     

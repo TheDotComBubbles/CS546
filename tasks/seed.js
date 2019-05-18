@@ -67,7 +67,7 @@ const main = async () => {
     const user2 = await users.create("Phil", "Barresi", "phil@stevens.edu", "555-555-5556", 99, "Password", "08-19-1919")
     console.log("added a user", user2)
     userIds.push(user2);
-    const user3 = await users.create("Alisha", "Singh", "alisha@stevens.edu", "555-555-5557", 25, "Password", "09-19-1993")
+    const user3 = await users.create("Alisha", "Singh", "alisha@stevens.edu", "555-555-5557", 23, "Password", "06-17-1995")
     console.log("added a user", user3)
     userIds.push(user3);
     const user4 = await users.create("Shalin", "Shalin", "shalin@stevens.edu", "555-555-5558", 25, "Password", "10-19-1993")

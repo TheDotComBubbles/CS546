@@ -1,14 +1,12 @@
-<header>
-    <nav>
-        <a href="/">Profile</a>
-        <a href="/">About Us</a>
-        <a href="/">Sign Out</a>
-    </nav>
-</header>
+
+        <a href="/users/about">About Us</a>
+        <a href="/users/logout">Sign Out</a>
+
 
 <main>
+    <h1>Welcome!</h1>
     <section>
-        <form action="/search" method="POST">
+        <form action="/search/{{userID}}" method="POST">
             <p>Search By:</p>
             <label for="name">Name</label>
             <input type="radio" id="name" name="searchtype" value="name" checked>
@@ -24,5 +22,5 @@
 </main>
 
 <footer>
-    <a href="/home">Make another Search</a>
+    <a href="/{{userID}}/home">Make another Search</a>
 </footer>
