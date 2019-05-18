@@ -147,7 +147,7 @@ router.post("/login", async (req, res) => {
         
         res.cookie('token', user['token']);
         res.cookie('userid', user['user'][0]._id);
-        res.status(200).redirect("/users/registration")    
+        res.status(200).redirect(`/${user._id}/home`)    
       
     
        
