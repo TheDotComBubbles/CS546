@@ -111,7 +111,7 @@ async addRatedVenue(userId, venueId, venueName) {
 
         if(result.modifiedCount <= 0) throw "Unable to update User Collection with the new review. Confirm the user exists."
 
-        let user = this.getUserById(userObjectId);
+        let user =  await this.getUserById(userObjectId);
         return user
     }
     catch(error) {
@@ -161,7 +161,6 @@ async create(firstName, lastName, email, phone, age, password, bday) {
             const user = await this.getUserById(newId);
 
             return user
-       
     } 
   },
   
