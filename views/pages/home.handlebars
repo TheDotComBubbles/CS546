@@ -1,12 +1,12 @@
 <header>
     <nav>
-        <a href="/">Profile</a>
-        <a href="/">About Us</a>
-        <a href="/">Sign Out</a>
+        <a href="/">About Us</a>&nbsp;&nbsp;
+        <a href="/">Sign Out</a>&nbsp;&nbsp;
     </nav>
 </header>
 
 <main>
+    <h1>Welcome!</h1>
     <section>
         <form action="/search/{{userID}}" method="POST">
             <p>Search By:</p>
@@ -24,5 +24,5 @@
 </main>
 
 <footer>
-    <a href="/home">Make another Search</a>
+    <a href="/{{userID}}/home">Make another Search</a>
 </footer>
