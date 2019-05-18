@@ -134,7 +134,7 @@ async create(firstName, lastName, email, phone, age, password, bday) {
             if (insertInfo.insertedCount === 0) throw "Could not add user";
 
             const newId = insertInfo.insertedId;
-            const user = await getUserById(newId);
+            const user = await this.getUserById(newId);
 
             return user
        
@@ -167,9 +167,9 @@ async create(firstName, lastName, email, phone, age, password, bday) {
         obj["user"]=user
         // console.log("obj")
         // console.log(obj)
-        const people = await getUserByEmail(email)
-        return people
-        // return obj  
+        // const people = await this.getUserByEmail(email)
+        // return people
+        return obj  
     }
 }
 
