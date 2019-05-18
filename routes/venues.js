@@ -2,6 +2,7 @@ const express = require("express");
 const router = express.Router();
 const data = require("../data");
 const venue = data.venues;
+const user = data.users
 const ObjectID = require("mongodb").ObjectID
 const xss = require("xss")
 
@@ -20,19 +21,20 @@ router.get("/:venueid", async(req, res) => {
     }
 })
 
-router.post("/:venueid/reviewadded", async (req, res) => {
+router.post("/:venueid/reviewadded", (req, res) => {
     //add review to the user and venue database
     //user db -->   1. search by user id
     //              2. add venueid in the array
     //venue db -->  1. search by venueid
     //              2. add userid, review, rating as object in review
     let venueID = req.params.venueid
-    let rating = req.body.rating
-    let review = req.body.content
-    console.log("\n\nIn venues POST route...")
+    let rating = req.body.ratingVal
+    let review = req.body.reviewContent
+    console.log("\n\n#################In venues POST route...")
     console.log(`VenueID:${venueID}\nRating:${rating}\nReview:${review}`)
-    res.json({ success: true, message: xss(req.body.content) });
 
+    //await venue.addVenueReview(venueID, userID, review, rating)
+    res.json({success: true, message: xss(review)});
 })
 
 module.exports = router;
