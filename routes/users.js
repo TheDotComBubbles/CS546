@@ -7,31 +7,7 @@ const userData = data.users;
 const checkCookie = require('../middleware/check_cookie')
 const jwt = require('jsonwebtoken')
 const bcrypt = require('bcrypt')
-// const jwt = require('jsonwebtoken')
 
-
-/*
-  router.get("/", (req,res) => { 
-    let route = path.resolve("static/peopleFinder.html");
-    res.sendFile(route);
-  });
-  */
-
-//  router.get("/", (req,res) => { 
-//     userData.getAllUsers()
-//     .then((users) => {
-//         res.render("pages/users", {
-//             title: "All Users",
-//             users
-//         })
-//     }).catch(e => {
-//         res.status(400);
-//         res.render("pages/error", {
-//             title: "Invalid",
-//             error: e
-//         });
-//     });
-//   });
 router.get("/registration", checkCookie, async (req, res) => {
   console.log("sign up")
   req.flash('error','')
@@ -54,31 +30,21 @@ router.get("/logon", checkCookie, async (req, res) => {
  
 
   res.status(200).render("pages/login", {
-
     title:"Signup Page",
- 
   });
 });
 
 router.get("/logout", checkCookie, async (req, res) => {
   console.log("sign in")
- 
-
   res.status(200).render("pages/login", {
-
     title:"Signup Page",
- 
   });
 });
 
 router.get("/about", checkCookie, async (req, res) => {
   console.log("sign in")
- 
-
   res.status(200).render("pages/aboutUS", {
-
     title:"AboutUs",
- 
   });
 });
 
@@ -123,32 +89,12 @@ router.get("/about", checkCookie, async (req, res) => {
           if(format.test(req.body.password)) throw "Don't contain special character like !@#$%^&*.,<>/\'\";:? in password";
      
           const user = await userData.create(req.body.fname, req.body.lname, req.body.email, req.body.phone, Number(req.body.age), req.body.password, req.body.bday)
-          // console.log(user)
-          // const token = jwt.sign({/////////put tolen in the data
-          //   email: user.email ,
-          //   userId: user._id
-          // },
-          // process.env.JWT_KEY,
-          //     {
-          //         expiresIn: "1h"
-          //     }
-          // )
-     
-          // res.cookie('token', token);
-          // res.cookie('userid', user._id);
        
-          res.status(200).redirect(`/${user._id}/home`)    
-          // res.status(200).render("Component/homepage", {
-            //   user: user
-          //   title:"Home Page",
-          // })    
+          res.status(200).redirect(`/${user._id}/home`)      
         
     }catch(e){
       req.flash('error', e)
       res.redirect('/users/registration')
-      // res.status(400).json({
-      //   error:e
-      // })
   }
 });
 
@@ -167,37 +113,6 @@ router.post("/login", async (req, res) => {
     req.flash('error', e)
     res.redirect('/users/login')
         }
-        // res.status(400).json({
-        //   error:e
-        // })
-    
   });
-//   router.post("/", (req,res) => {
-
-//     let searchTerm = req.body.userIdSearch
-//     validate.validateAndConvertId(searchTerm)
-//     .then(id => {
-//         if(!searchTerm.length||!id) {
-//             res.status(400);
-//             res.render("pages/error", {
-//                 title: "Invalid",
-//                 searchTerm: searchTerm
-//             });
-//         }
-//         return userData.getUserById(searchTerm)
-//     }).then((user) => {
-//         res.render("pages/user", {
-//             title: "Users",
-//             userId: user._id,
-//             user
-//         });
-//     }).catch(e => {
-//         res.status(400);
-//         res.render("pages/error", {
-//             title: "Invalid",
-//             searchTerm: searchTerm
-//         });
-//     });
-// });
 
 module.exports = router;

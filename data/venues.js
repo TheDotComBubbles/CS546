@@ -64,7 +64,6 @@ getVenueByName(name) {
 getVenuesBySearchString(searchString) { 
     try {  
         let rx = new RegExp(searchString)
-        console.log("\n\n" + rx + "\n\n\n\n");
         return validate.verifyString(searchString)
             .then(() => {
                 return venues()
@@ -87,11 +86,12 @@ getVenuesBySearchString(searchString) {
 
 getVenueByLocation(location) { 
     try {  
+        let rx = new RegExp(location)
         return validate.verifyString(location)
             .then(() => {
                 return venues()
                 .then(venueCollection => {
-                    return venueCollection.find({"location": location }).toArray()
+                    return venueCollection.find({ "location": { $regex: rx }}).toArray()
                     .then(venue => {
                     if (!venue) throw "WARN: " + "Could not find venue with location " + location;
                     return venue;
@@ -124,6 +124,29 @@ getVenueByRating(rating) {
         })
         .catch((error) => {
             console.log("ERROR: " + error);
+        });
+    }
+    catch(error) {
+        console.log(error)
+    }
+},
+
+getVenueByRatingGT(rating) {  
+    try {         
+        validate.verifyNum(rating);
+
+        return venues()
+        .then(venueCollection => {
+            return venueCollection      
+                .find({ rating: { $gt: rating-1 } })
+                .toArray();
+            })
+            .then((venue) => {
+            if (!venue) throw "WARN: " + "Could not find venue with ratings in " + rating;
+            return venue;
+            })
+            .catch((error) => {
+                console.log("ERROR: " + error);
         });
     }
     catch(error) {
