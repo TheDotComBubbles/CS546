@@ -2,6 +2,7 @@ const express = require("express");
 const router = express.Router();
 const data = require("../data");
 const venue = data.venues;
+const user = data.users
 const ObjectID = require("mongodb").ObjectID
 const xss = require("xss")
 
@@ -31,6 +32,7 @@ router.post("/:venueid/reviewadded", async (req, res) => {
     let review = req.body.content
     console.log("\n\nIn venues POST route...")
     console.log(`VenueID:${venueID}\nRating:${rating}\nReview:${review}`)
+
     res.json({ success: true, message: xss(req.body.content) });
 
 })
