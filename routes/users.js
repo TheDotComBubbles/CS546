@@ -143,15 +143,11 @@ router.post("/login", async (req, res) => {
       if(req.body.email ==  '' || req.body.password ==  '' ) throw 'Please fill all fields'
         
         const user = await userData.login(req.body.email, req.body.password)
-       
-        
+        let userId = user.user[0]._id
+
         res.cookie('token', user['token']);
         res.cookie('userid', user['user'][0]._id);
-        res.status(200).redirect(`/${user._id}/home`)    
-      
-    
-       
-      
+        res.status(200).redirect(`/${userId}/home`)    
   }catch(e){
     req.flash('error', e)
     res.redirect('/users/login')
