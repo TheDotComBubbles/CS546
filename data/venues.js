@@ -130,20 +130,23 @@ createVenue(name, location, style, description, rating) {
     });
 },
 
-addVenueReview(venueId, userId, review) {
+addVenueReview(venueId, userId, review, rating) {
     return validate.verifyString(review).then(()=> {
         return validate.validateAndConvertId(venueId).then((venueObjectId)=> {
             return validate.validateAndConvertId(userId).then((userObjectId)=> {
-                return venues().then(venueCollection=> {
-                    return venueCollection.updateOne(
-                        { _id: venueObjectId }, 
-                        { $push: { 
-                            userID: userObjectId, 
-                            review: review 
-                        }}).then((insertInfo) => {
-                            return this.getVenueById(venueObjectId).then(result => {
-                                    if (!result) throw "WARN: " + "Could not find venue with id " + id;
-                                    return result;
+                return validate.verifyNum(rating).then(()=> {
+                    return venues().then(venueCollection=> {
+                        return venueCollection.updateOne(
+                            { _id: venueObjectId }, 
+                            { $push: {reviews: {
+                                userID: userObjectId, 
+                                review: review,
+                                rating: rating
+                            }}}).then((insertInfo) => {
+                                return this.getVenueById(venueObjectId).then(result => {
+                                        if (!result) throw "WARN: " + "Could not find venue with id " + id;
+                                        return result;
+                                });
                             });
                         });
                     });
