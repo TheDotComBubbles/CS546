@@ -185,7 +185,7 @@ updateVenueAggregateRating(venueId) {
     });
 },
 
-/*
+
 getVenueByHours(lowerRange, upperRange, dayOfTheWeek) {
     validate.verifyNumber(lowerRange).then(() => 
         validate.verifyNumber(upperRange)).then(() => {
@@ -201,7 +201,6 @@ getVenueByHours(lowerRange, upperRange, dayOfTheWeek) {
             })
         })
     },
-*/
 
 updateVenueStyle(id, newStyle) {
         validate.verifyString(style).then(()=> {
@@ -231,7 +230,7 @@ async function ratingReducer(venue) {
 
     let aggRating = (sum/len);
     console.log("Aggregate Rating: " + aggRating);
-    return aggRating;
+    return Math.round(aggRating);
 }
 
 
