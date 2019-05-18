@@ -93,14 +93,11 @@ const main = async () => {
         ]
 
         let result = await asyncForEach([1,2,3,4], async (i) => {
-            min = Math.ceil(0);
-            max = Math.floor(userIds.length-1);
-            five = Math.ceil(5);
-            let randomNum =  Math.floor(Math.random() * (max - min)) + min;
-            let randomNum5 =  Math.floor(Math.random() * (five - min)) + min;
+            let randomUser =  Math.floor(Math.random()* userIds.length);
+            let randomNum5 =  Math.floor(Math.random()* 6);
 
-            let result = await venues.addVenueReview(id, userIds[randomNum]._id, i +
-                "  Hi, I am " + userIds[randomNum].firstName + 
+            let result = await venues.addVenueReview(id, userIds[randomUser]._id, i +
+                "  Hi, I am " + userIds[randomUser].firstName + 
                 ". I rated my last visit at this venue as " + outcomes[randomNum5], randomNum5)
 
             console.log(result)
