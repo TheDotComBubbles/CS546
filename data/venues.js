@@ -148,7 +148,6 @@ addVenueReview(venueId, userId, review, rating) {
                                         return result;
                                 })
                                 .then((updatedRecord)=> {
-                                    console.log(venueObjectId);
                                     if(insertInfo.insertedCount === 0) throw "Could not complete";
                                     return this.updateVenueAggregateRating(venueObjectId)
                                 })
@@ -171,7 +170,6 @@ updateVenueAggregateRating(venueId) {
                         { _id: venueObjectId }, 
                         { $set: { "rating": aggRating } 
                         }).then((result) => {
-                        //console.log(result);
                             return this.getVenueById(venueObjectId).then(result => {
                                 if (!result) throw "WARN: " + "Could not find venue with id " + id;
                                 return result;
@@ -217,19 +215,14 @@ module.exports = exportedMethods;
 
 
 async function ratingReducer(venue) {
-    console.log(venue.reviews.length);
     let len =  venue.reviews.length 
-
-    console.log("\n\nLength: \n\n" + len + "\n\n\n");
     let sum = 0;
 
     venue.reviews.forEach((x) => {
-        console.log(x.rating);
         sum = sum + x.rating
     });
 
     let aggRating = (sum/len);
-    console.log("Aggregate Rating: " + aggRating);
     return Math.round(aggRating);
 }
 
