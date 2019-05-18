@@ -1,0 +1,28 @@
+<header>
+    <nav>
+        <a href="/">Profile</a>
+        <a href="/">About Us</a>
+        <a href="/">Sign Out</a>
+    </nav>
+</header>
+
+<main>
+    <section>
+        <form action="/search/{{userID}}" method="POST">
+            <p>Search By:</p>
+            <label for="name">Name</label>
+            <input type="radio" id="name" name="searchtype" value="name" checked>
+            <label for="location">Location</label>
+            <input type="radio" id="location" name="searchtype" value="location">
+            <label for="Rating">Rating</label>
+            <input type="radio" id="rating" name="searchtype" value="rating"><br>
+            <input type="text" name="searchstring" placeholder="Enter string to search" required><br>
+            <button type="submit">Search</button>
+        </form>
+    </section>
+    
+</main>
+
+<footer>
+    <a href="/home">Make another Search</a>
+</footer>

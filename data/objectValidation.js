@@ -21,6 +21,7 @@ async function getJsonFromURL(url) {
 
 /*Function that takes one argument, id, and returns a valid Mongo DB id or throws an error.*/
 async function validateAndConvertId(id) {
+
     if(!id) throw "You must provide an id to search for";
     
     if(typeof id !== ObjectId()) {
