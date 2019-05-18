@@ -19,7 +19,7 @@ let exportedMethods = {
 //     });
 // },
 
-getUserById(id) {
+async getUserById(id) {
        
     return validate.validateAndConvertId(id)
         .then((objectId) => {
@@ -35,6 +35,7 @@ getUserById(id) {
         console.log("ERROR: " + error);
     });
 },
+
 
 // getUserByName(name) {
 //     validate.verifyString(name)
@@ -64,20 +65,20 @@ getUserById(id) {
 //     });
 // },
 
-// getUserByEmail(email) {
-//     //add regex for email
-//     validate.verifyString(email)
-//         return users()
-//         .then(userCollection => {
-//             return userCollection.findOne({ email: email })
-//             .then(user => {
-//             if (!user) throw "WARN: " + "Could not find user with email " + email;
-//             return user;
-//             });
-//           }).catch((error) => { 
-//         console.log("ERROR: " + error);
-//     });
-// },
+async getUserByEmail(email) {
+    //add regex for email
+    validate.verifyString(email)
+        return users()
+        .then(userCollection => {
+            return userCollection.findOne({ email: email })
+            .then(user => {
+            if (!user) throw "WARN: " + "Could not find user with email " + email;
+            return user;
+            });
+          }).catch((error) => { 
+        console.log("ERROR: " + error);
+    });
+},
 
 // getUserByPhoneNumber(phoneNumber) {
 //     //add regex for phone number
@@ -113,7 +114,7 @@ async create(firstName, lastName, email, phone, age, password, bday) {
     var checkExist = await userCollection.find({email: email}).toArray();
 
     if(checkExist.length>=1){
-       throw "Mail exists"
+       throw "Mail exists please try to login"
     }else{
 
     
@@ -133,7 +134,7 @@ async create(firstName, lastName, email, phone, age, password, bday) {
             if (insertInfo.insertedCount === 0) throw "Could not add user";
 
             const newId = insertInfo.insertedId;
-            const user = await this.getUserById(newId);
+            const user = await getUserById(newId);
 
             return user
        
@@ -149,7 +150,7 @@ async create(firstName, lastName, email, phone, age, password, bday) {
         throw "Email doesn\'t exist! Please sign up"
     }
     console.log("User's password")
-    console.log(user[0])
+    // console.log(user[0])
     var tmp = await bcrypt.compare(password, user[0].hashedPassword).then(function (data) {return data}).catch(e=> {throw e;});
     // console.log("tmp")
     console.log(tmp)
@@ -165,9 +166,12 @@ async create(firstName, lastName, email, phone, age, password, bday) {
         obj["token"]=token
         obj["user"]=user
         // console.log("obj")
-        console.log(obj)
-        return obj  
+        // console.log(obj)
+        const people = await getUserByEmail(email)
+        return people
+        // return obj  
     }
-},
+}
+
 }
 module.exports = exportedMethods;
