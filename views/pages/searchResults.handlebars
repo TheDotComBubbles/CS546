@@ -11,8 +11,6 @@
     <h1>{{title}}</h1>
     <h3>{{type}} : {{searchStr}}</h3>
     <ul>
-        {{!-- replace with with each, instead of findone, findAll --}}
-        {{!-- send all data as array --}}
         {{#each foundData}}
             <li>
                 <a href="/venues/{{_id}}">{{name}}</a>

@@ -10,7 +10,9 @@
             }),
         review = $("#content"),
         message = $("#message-container")
+    let venueId = reviewForm[0].dataset.venueid
 
+    console.log(reviewForm, venueId);
     if (reviewForm) {
         reviewForm.submit(function (event) {
             // console.log(reviewForm, rating, review, message)
@@ -26,7 +28,7 @@
                 if (useJson) {
                     let requestConfig = {
                         method: "POST",
-                        url: "/reviewadded",
+                        url: `/venues/${venueId}/reviewadded`,
                         contentType: "application/json",
                         data: JSON.stringify({
                             ratingVal: ratingVal,
@@ -36,7 +38,11 @@
 
                     $.ajax(requestConfig).then(function (responseMessage) {
                         console.log(responseMessage);
+            
                         message.append("<p id='review-added'>Review has been successfully added</p>");
+                        setTimeout(function(){
+                            $('#review-added').remove();
+                          }, 5000);
                     });
                 }
             }
