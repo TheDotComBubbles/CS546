@@ -7,6 +7,8 @@ const userData = data.users;
 const checkCookie = require('../middleware/check_cookie')
 const jwt = require('jsonwebtoken')
 const bcrypt = require('bcrypt')
+// const jwt = require('jsonwebtoken')
+
 
 /*
   router.get("/", (req,res) => { 
@@ -32,9 +34,15 @@ const bcrypt = require('bcrypt')
 //   });
 router.get("/registration", checkCookie, async (req, res) => {
   console.log("sign up")
+  req.flash('error','')
+  res.render("pages/registration",{error:false})
+});
+
+router.get("/logon", checkCookie, async (req, res) => {
+  console.log("sign in")
  
 
-  res.status(200).sendFile(path.resolve("static/registration.html")), {
+  res.status(200).render("pages/login"), {
 
     title:"Signup Page",
  
@@ -42,7 +50,7 @@ router.get("/registration", checkCookie, async (req, res) => {
 });
 
 
-  router.post("/registartion", async (req,res) =>{
+  router.post("/registration", async (req,res) =>{
     try{
    console.log(req.body)
           if(req.body.fname ==  '' || req.body.lname == '' || req.body.phone == '' || req.body.email == '' || req.body.password == '' || req.body.age == '' || req.body.bday == '') throw 'Please fill all fields'
@@ -80,14 +88,15 @@ router.get("/registration", checkCookie, async (req, res) => {
           // res.cookie('token', token);
           // res.cookie('userid', user._id);
        
-          res.status(200).sendFile(path.resolve("static/login.html"))     
+          res.status(200).render("pages/login")    
           // res.status(200).render("Component/homepage", {
+            //   user: user
           //   title:"Home Page",
-          //   user: user
           // })    
         
     }catch(e){
-      res.status(400).sendFile(path.resolve("static/registration.html")) 
+      req.flash('error', e)
+      res.redirect('/users/registration')
       // res.status(400).json({
       //   error:e
       // })
@@ -104,21 +113,20 @@ router.post("/login", async (req, res) => {
         
         res.cookie('token', user['token']);
         res.cookie('userid', user['user'][0]._id);
-        res.status(200).sendFile(path.resolve("static/login.html"))     
+        res.status(200).redirect("/users/registration")    
       
     
        
       
   }catch(e){
-      res.status(400).sendFile(path.resolve("static/login.html"),{
-          hasErrors:true,
-          error : e,
-      })
-      // res.status(400).json({
-      //   error:e
-      // })
-  }
-});
+    req.flash('error', e)
+    res.redirect('/users/login')
+        }
+        // res.status(400).json({
+        //   error:e
+        // })
+    
+  });
 //   router.post("/", (req,res) => {
 
 //     let searchTerm = req.body.userIdSearch

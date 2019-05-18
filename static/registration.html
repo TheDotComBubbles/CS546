@@ -33,7 +33,7 @@ function hideURLbar(){ window.scrollTo(0,1); } </script>
 					<input type="text" name="lname" placeholder="LastName" required="" size="50" style="height: 30px;"/>
 				</div>
 				<div class="form-sub-w3">
-					<input type="text" name="email" placeholder="Email" required="" size="50" style="height: 30px;"/>
+					<input type="email" name="email" placeholder="Email" required="" size="50" style="height: 30px;"/>
 				</div>
 				<div class="form-sub-w3">
 					<input type="text" name="phone" placeholder="PhoneNumber" required="" size="50" style="height: 30px;"/>
@@ -53,6 +53,21 @@ function hideURLbar(){ window.scrollTo(0,1); } </script>
 				<div class="submit-agileits">
 					<input type="submit" value="Register">
 				</div>
+
+				{{#if hasErrors }}
+                <div class="form-group">
+                    <ul class="error-list" style="padding-inline-start: 0px;">
+        
+                        <li style="list-style: none;">
+                        <p class="not-found">{{error}}</p>
+                        </li>
+                    </ul>
+                </div>
+                {{/if}}
+                <div class="form-group">
+                    <button type="submit" class="btn_signup">Submit</button>
+                </div>
+                <br>
 				<div>
 					<a href="login.html"> Already Have an account?</a>
 				</div>

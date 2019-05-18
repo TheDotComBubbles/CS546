@@ -3,19 +3,21 @@ let validate = require("./objectValidation");
 const mongoCollections = require("../config/collections");
 let users = mongoCollections.users;
 const bcrypt = require('bcrypt')
+const jwt = require('jsonwebtoken')
+
 
 let exportedMethods = {
- getAllUsers() {
+//  getAllUsers() {
 
-    return users()
-    .then((userCollection) => {
-        return userCollection.find({}).toArray()
-        .then((allUsers) => {
-            if(allUsers===undefined) throw "No Users Found";
-            return allUsers;
-        });
-    });
-},
+//     return users()
+//     .then((userCollection) => {
+//         return userCollection.find({}).toArray()
+//         .then((allUsers) => {
+//             if(allUsers===undefined) throw "No Users Found";
+//             return allUsers;
+//         });
+//     });
+// },
 
 getUserById(id) {
        
@@ -34,63 +36,63 @@ getUserById(id) {
     });
 },
 
-getUserByName(name) {
-    validate.verifyString(name)
-        return users()
-        .then(userCollection => {
-            return userCollection.findOne({ name: name })
-            .then(user => {
-            if (!user) throw "WARN: " + "Could not find user with name " + name;
-            return user;
-            });
-          }).catch((error) => { 
-        console.log("ERROR: " + error);
-    });
-},
+// getUserByName(name) {
+//     validate.verifyString(name)
+//         return users()
+//         .then(userCollection => {
+//             return userCollection.findOne({ name: name })
+//             .then(user => {
+//             if (!user) throw "WARN: " + "Could not find user with name " + name;
+//             return user;
+//             });
+//           }).catch((error) => { 
+//         console.log("ERROR: " + error);
+//     });
+// },
 
-getUserByDOB(dob) {
-    validate.verifyString(dob)
-        return users()
-        .then(userCollection => {
-            return userCollection.findOne({ dob: dob })
-            .then(user => {
-            if (!user) throw "WARN: " + "Could not find user with dob " + dob;
-            return user;
-            });
-          }).catch((error) => { 
-        console.log("ERROR: " + error);
-    });
-},
+// getUserByDOB(dob) {
+//     validate.verifyString(dob)
+//         return users()
+//         .then(userCollection => {
+//             return userCollection.findOne({ dob: dob })
+//             .then(user => {
+//             if (!user) throw "WARN: " + "Could not find user with dob " + dob;
+//             return user;
+//             });
+//           }).catch((error) => { 
+//         console.log("ERROR: " + error);
+//     });
+// },
 
-getUserByEmail(email) {
-    //add regex for email
-    validate.verifyString(email)
-        return users()
-        .then(userCollection => {
-            return userCollection.findOne({ email: email })
-            .then(user => {
-            if (!user) throw "WARN: " + "Could not find user with email " + email;
-            return user;
-            });
-          }).catch((error) => { 
-        console.log("ERROR: " + error);
-    });
-},
+// getUserByEmail(email) {
+//     //add regex for email
+//     validate.verifyString(email)
+//         return users()
+//         .then(userCollection => {
+//             return userCollection.findOne({ email: email })
+//             .then(user => {
+//             if (!user) throw "WARN: " + "Could not find user with email " + email;
+//             return user;
+//             });
+//           }).catch((error) => { 
+//         console.log("ERROR: " + error);
+//     });
+// },
 
-getUserByPhoneNumber(phoneNumber) {
-    //add regex for phone number
-    validate.verifyString(phoneNumber)
-        return users()
-        .then(userCollection => {
-            return userCollection.findOne({ phoneNumber: phoneNumber })
-            .then(user => {
-            if (!user) throw "WARN: " + "Could not find user with phoneNumber " + phoneNumber;
-            return user;
-            });
-          }).catch((error) => { 
-        console.log("ERROR: " + error);
-    });
-},
+// getUserByPhoneNumber(phoneNumber) {
+//     //add regex for phone number
+//     validate.verifyString(phoneNumber)
+//         return users()
+//         .then(userCollection => {
+//             return userCollection.findOne({ phoneNumber: phoneNumber })
+//             .then(user => {
+//             if (!user) throw "WARN: " + "Could not find user with phoneNumber " + phoneNumber;
+//             return user;
+//             });
+//           }).catch((error) => { 
+//         console.log("ERROR: " + error);
+//     });
+// },
 
 async create(firstName, lastName, email, phone, age, password, bday) {
        
@@ -150,23 +152,20 @@ async create(firstName, lastName, email, phone, age, password, bday) {
     console.log("User's password")
     console.log(user[0])
     var tmp = await bcrypt.compare(password, user[0].hashedPassword).then(function (data) {return data}).catch(e=> {throw e;});
-    console.log("tmp")
+    // console.log("tmp")
     console.log(tmp)
     if(tmp != true){
-        throw "Your email or password doesn't exist!"
+        throw "Your email and password doesn't match!"
     }else{
         const token = jwt.sign({
             email: user[0].email,
             userId: user[0]._id
         },
-        process.env.JWT_KEY,
-            {
-                expiresIn: "1h"
-            }
+        '123'
         )
         obj["token"]=token
         obj["user"]=user
-        console.log("obj")
+        // console.log("obj")
         console.log(obj)
         return obj  
     }
