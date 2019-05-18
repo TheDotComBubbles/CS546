@@ -6,6 +6,8 @@ const path = require("path");
 
 const constructorMethod = app => {
   app.use("/users", userRoutes);
+
+  //add userid as req param in venues search and about us while the user is logged in and home 
   app.use("/venues",venuesRoutes);
   app.use("/search", searchRoutes);
   
