@@ -49,6 +49,28 @@ router.get("/logon", checkCookie, async (req, res) => {
   });
 });
 
+router.get("/logout", checkCookie, async (req, res) => {
+  console.log("sign in")
+ 
+
+  res.status(200).render("pages/login", {
+
+    title:"Signup Page",
+ 
+  });
+});
+
+router.get("/about", checkCookie, async (req, res) => {
+  console.log("sign in")
+ 
+
+  res.status(200).render("pages/aboutUS", {
+
+    title:"AboutUs",
+ 
+  });
+});
+
 
   router.post("/registration", async (req,res) =>{
     try{
