@@ -5,14 +5,16 @@ const venue = data.venues;
 const ObjectID = require("mongodb").ObjectID
 const xss = require("xss")
 
+
 router.get("/:venueid", async(req, res) => {
     try {
         console.log("In Venues GET route")
         let venueId = ObjectID(req.params.venueid)
         const venueData = await venue.getVenueById(venueId)
         console.log("Venue found: ", venueData)
-        res.render('pages/details',{title: "Venue Details", foundName: venueData.name, details: venueData, venueID: venueId });
-   
+        
+        res.render('pages/details', { title: "Venue Details", foundName: venueData.name, details: venueData, venueID: venueId });
+  
     } catch (error) {
         res.status(500).json({error: error})
     }

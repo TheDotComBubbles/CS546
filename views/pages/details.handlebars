@@ -28,7 +28,11 @@
     
     <section>
         <p>Write your review here:</p>
+<<<<<<< HEAD
         <form method="post" id="review-form" action="/venues/{{venueID}}/reviewadded">
+=======
+        <form method="post">
+>>>>>>> 970267a70fe7995174022fb3fe3d395e30194c5f
             <label for="rating">Rating</label>
             <select name="rating" id="rating" required>
                 <option value="" selected disabled hidden>Choose here</option>
@@ -54,3 +58,9 @@
 <script src="https://code.jquery.com/jquery-2.2.4.min.js" integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44="
         crossorigin="anonymous"></script>
 <script src="/public/frontendJS/review.js"></script>
+            <input type="text" name="content" id="content" placeholder="Add your review here" required>
+            <button type="submit" id="submit review">Submit Review</button>
+        </form>
+    </section>
+    
+</main>
