@@ -139,7 +139,7 @@ async create(firstName, lastName, email, phone, age, password, bday) {
        
     } 
   },
-
+  
   async login(email, password){
     console.log('step 1')
     var obj = {}
@@ -147,7 +147,6 @@ async create(firstName, lastName, email, phone, age, password, bday) {
     var user = await userCollection.find({ email: email }).toArray()
     if(user.length < 1){
         throw "Email doesn\'t exist! Please sign up"
-        
     }
     console.log("User's password")
     console.log(user[0])
