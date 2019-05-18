@@ -28,7 +28,8 @@ router.post("/:userid", async (req, res) => {
             param.forEach(element => {
                 element = Number(element)
             });
-            data = await venueData.getVenueByRating(param)
+            //data = await venueData.getVenueByRating(param)
+            data = await venueData.getVenueByRatingGT(searchStr);
         }
 
         if (data.length === 0) {

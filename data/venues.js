@@ -131,6 +131,29 @@ getVenueByRating(rating) {
     }
 },
 
+getVenueByRatingGT(rating) {  
+    try {         
+        validate.verifyNum(rating);
+
+        return venues()
+        .then(venueCollection => {
+            return venueCollection      
+                .find({ rating: { $gt: rating-1 } })
+                .toArray();
+            })
+            .then((venue) => {
+            if (!venue) throw "WARN: " + "Could not find venue with ratings in " + rating;
+            return venue;
+            })
+            .catch((error) => {
+                console.log("ERROR: " + error);
+        });
+    }
+    catch(error) {
+        console.log(error)
+    }
+},
+
 createVenue(name, location, style, description, rating) {
     try {
         return validate.verifyString(name, "name").then(() => {
