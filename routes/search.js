@@ -1,5 +1,4 @@
 const express = require("express");
-const validate = require("../data/objectValidation");
 const router = express.Router();
 const data = require("../data");
 const venueData = data.venues;
@@ -17,7 +16,7 @@ router.post("/", async (req, res) => {
         let data
 
         if (type === "name") {
-            data = await venueData.getVenueByName(searchStr)
+            data = await venueData.getVenuesBySearchString(searchStr)
         } else if (type === "location") {
             data = await venueData.getVenueByLocation(searchStr)
         } else {
@@ -25,7 +24,7 @@ router.post("/", async (req, res) => {
             console.log("Searching by rating")
             console.log("\nSearch string after splitting", param)
             param.forEach(element => {
-                element = parseInt(element)
+                element = Number(element)
             });
             console.log(`Parameter sent:${typeof param} ${param}`)
             data = await venueData.getVenueByRating(param)
@@ -34,14 +33,12 @@ router.post("/", async (req, res) => {
         console.log(typeof data)
 
         if (data.length === 0) {
-            res.render("pages/searchResults", { hasErrors: true, title: "Search Result", foundData: data, searchStr: searchStr, type: type })
+            res.render("pages/searchResults", { hasErrors: true, title: "Search Result", foundData: data, searchStr: searchStr, type: type.toUpperCase() })
         } else {
-            res.render("pages/searchResults", { hasErrors: false, title: "Search Result", foundData: data, searchStr: searchStr, type: type })
-        }
-        
+            res.render("pages/searchResults", { hasErrors: false, title: "Search Result", foundData: data, searchStr: searchStr, type: type.toUpperCase()})
+        }       
     } catch (error) {
         res.status(500).json({error: error})
-    
     }
     
 })
