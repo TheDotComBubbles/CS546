@@ -11,6 +11,7 @@
         review = $("#content"),
         message = $("#message-container")
     let venueId = reviewForm[0].dataset.venueid
+    let userId = reviewForm[0].dataset.userid
 
     console.log(reviewForm, venueId);
     if (reviewForm) {
@@ -28,7 +29,7 @@
                 if (useJson) {
                     let requestConfig = {
                         method: "POST",
-                        url: `/venues/${venueId}/reviewadded`,
+                        url: `/venues/${userId}/${venueId}/reviewadded`,
                         contentType: "application/json",
                         data: JSON.stringify({
                             ratingVal: ratingVal,
@@ -42,7 +43,8 @@
                         message.append("<p id='review-added'>Review has been successfully added</p>");
                         setTimeout(function(){
                             $('#review-added').remove();
-                          }, 5000);
+                        }, 5000);
+                        location.reload(true);
                     });
                 }
             }
