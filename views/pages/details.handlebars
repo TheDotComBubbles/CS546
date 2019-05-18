@@ -38,7 +38,7 @@
     
     <section>
         <p>Write your review here:</p>
-        <form method="post" id="review-form" data-venueId={{venueID}} action="/venues/{{venueID}}/reviewadded">
+        <form method="post" id="review-form" data-venueId={{venueID}} data-userId = {{userId}} action="/venues/{{userId}}/{{venueID}}/reviewadded">
             <label for="rating">Rating</label>
             <select name="rating" id="rating" required>
                 <option value="" selected disabled hidden>Choose here</option>

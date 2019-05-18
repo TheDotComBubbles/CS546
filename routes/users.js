@@ -42,11 +42,11 @@ router.get("/logon", checkCookie, async (req, res) => {
   console.log("sign in")
  
 
-  res.status(200).render("pages/login"), {
+  res.status(200).render("pages/login", {
 
     title:"Signup Page",
  
-  };
+  });
 });
 
 
@@ -88,7 +88,7 @@ router.get("/logon", checkCookie, async (req, res) => {
           // res.cookie('token', token);
           // res.cookie('userid', user._id);
        
-          res.status(200).render("pages/login")    
+          res.status(200).redirect(`/${user._id}/home`)    
           // res.status(200).render("Component/homepage", {
             //   user: user
           //   title:"Home Page",

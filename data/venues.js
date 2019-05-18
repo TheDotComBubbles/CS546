@@ -130,7 +130,8 @@ createVenue(name, location, style, description, rating) {
     });
 },
 
-addVenueReview(venueId, userId, review, rating) {
+    addVenueReview(venueId, userId, review, rating) {
+        console.log(venueId, userId, review, rating);
     return validate.verifyString(review).then(()=> {
         return validate.validateAndConvertId(venueId).then((venueObjectId)=> {
             return validate.validateAndConvertId(userId).then((userObjectId)=> {
