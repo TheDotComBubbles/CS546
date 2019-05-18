@@ -18,8 +18,11 @@ const constructorMethod = app => {
     res.sendFile(route);
   });
 
+  // app.use("*", (req, res) => {
+  //   res.render("pages/aboutUs");
+  // });
   app.use("*", (req, res) => {
-    res.render("pages/workInProgress", {})
+    res.render("pages/login");
   });
 };
 
