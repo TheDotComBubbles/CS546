@@ -1,12 +1,9 @@
 const express = require("express");
-const validate = require("../data/objectValidation");
-const path = require("path");
 const router = express.Router();
 const data = require("../data");
 const userData = data.users;
 const checkCookie = require('../middleware/check_cookie')
-const jwt = require('jsonwebtoken')
-const bcrypt = require('bcrypt')
+const ObjectID = require("mongodb").ObjectID
 
 router.get("/registration", checkCookie, async (req, res) => {
   console.log("sign up")
@@ -14,10 +11,21 @@ router.get("/registration", checkCookie, async (req, res) => {
   res.status(200).render("pages/registration",{error:false})
 });
 
-router.get("/profile", checkCookie, async (req, res) => {
-  console.log("profile")
-  res.status(200).render("pages/profile")
-});
+
+router.get("/logout", checkCookie, async (req, res) => {
+  // console.log("sign in")
+  if(req.session.user){
+    res.clearCookie('user_sha')
+    res.redirect('/pages/login')
+  }else{
+    res.redirect('/pages/login')
+  }
+})
+
+// router.get("/profile", checkCookie, async (req, res) => {
+//   console.log("profile")
+//   res.status(200).render("pages/profile")
+// });
 
 router.get("/logon", checkCookie, async (req, res) => {
   console.log("sign in")
@@ -38,12 +46,29 @@ router.get("/logout", checkCookie, async (req, res) => {
   }
 })
 
-router.get("/about", checkCookie, async (req, res) => {
-  console.log("sign in")
-  res.status(200).render("pages/aboutUS", {
-    title:"AboutUs",
-  });
-});
+// router.get("/about", checkCookie, async (req, res) => {
+//   console.log("sign in")
+//   res.status(200).render("pages/aboutUS", {
+//     title:"AboutUs",
+//   });
+// });
+
+// please update this user profile
+router.get("/:userid/profile", async(req, res) => {
+  // try {
+      console.log("In Venues GET route")
+      // let venueId = ObjectID(req.params.venueid)
+    let tosendid = req.params.userid
+      let userId = ObjectID(req.params.userid)
+      console.log("User ID", userId)
+      const user = await userData.getUserById(userId)
+      console.log("User found in profile get route:",user, typeof user)
+      res.render('pages/profile', { title: "Your Profile", profile: user, userId: tosendid });
+
+  // } catch (error) {
+  //     res.status(500).json({error: error})
+  // }
+})
 
   router.post("/registration", async (req,res) =>{
     try{
@@ -66,8 +91,8 @@ router.get("/about", checkCookie, async (req, res) => {
           if(format_name.test(req.body.fname) || format_name.test(req.body.lname)) throw "Don't contain special character like !@#$%^&*.,<>/\'\";:? in firstname or lastname";
      
           //test illegal password format
-          var format = /[ !@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]/;
-          if(format.test(req.body.password)) throw "Don't contain special character like !@#$%^&*.,<>/\'\";:? in password";
+          var format = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])[0-9a-zA-Z]{8,}$/;
+          if(format.test(req.body.password) == false) throw "Password should be atleast 8 characters long and should have 1 uppercase, 1 lowercase and 1 number";
      
           const user = await userData.create(req.body.fname, req.body.lname, req.body.email, req.body.phone, Number(req.body.age), req.body.password, req.body.bday)
        
