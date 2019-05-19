@@ -15,10 +15,14 @@ router.get("/registration", checkCookie, async (req, res) => {
 });
 
 router.get("/logout", checkCookie, async (req, res) => {
-  console.log("sign out")
-  
-  res.status(200).render("pages/login")
-});
+  // console.log("sign in")
+  if(req.session.user){
+    res.clearCookie('user_sha')
+    res.redirect('/pages/login')
+  }else{
+    res.redirect('/pages/login')
+  }
+})
 
 router.get("/profile", checkCookie, async (req, res) => {
   console.log("profile")
