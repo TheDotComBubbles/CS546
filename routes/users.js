@@ -91,8 +91,8 @@ router.get("/:userid/profile", async(req, res) => {
           if(format_name.test(req.body.fname) || format_name.test(req.body.lname)) throw "Don't contain special character like !@#$%^&*.,<>/\'\";:? in firstname or lastname";
      
           //test illegal password format
-          var format = /[ !@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]/;
-          if(format.test(req.body.password)) throw "Don't contain special character like !@#$%^&*.,<>/\'\";:? in password";
+          var format = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])[0-9a-zA-Z]{8,}$/;
+          if(format.test(req.body.password) == false) throw "Password should be atleast 8 characters long and should have 1 uppercase, 1 lowercase and 1 number";
      
           const user = await userData.create(req.body.fname, req.body.lname, req.body.email, req.body.phone, Number(req.body.age), req.body.password, req.body.bday)
        
