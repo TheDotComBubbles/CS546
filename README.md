@@ -13,17 +13,17 @@ Installation and Setup:
 ================================
 1. Unzip the contents of the zipped project 
 2. run the following command at the root to pull in node dependencies
-		npm install 
+		&nbsp npm install 
 3. run the following command to seed the database 
-		npm run-script seed 
+		&nbsp npm run-script seed 
 4. Finally, run the following command to start the web application.
-		npm start
+		&nbsp npm start
 
 
 Usage:
 ================================
 1. From any web browser access http://localhost:3000
 2. From the login screen you may Register a new account or use the following credentials:
-username: phil@stevens.edu
-password: Password
-3. 
+&nbsp username: phil@stevens.edu
+&nbsp password: Password
+

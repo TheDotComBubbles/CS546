@@ -24,8 +24,13 @@ const constructorMethod = app => {
   // app.use("*", (req, res) => {
   //   res.render("pages/aboutUs");
   // });
+  app.get("/aboutus", (req, res) => {
+    let route = path.resolve("static/aboutUs.html");
+    res.sendFile(route)
+  })
   app.use("*", (req, res) => {
-    res.render("pages/login");
+    //res.render("pages/login");
+    res.render('pages/login', {layout: 'alternate.handlebars'});
   });
 };
 

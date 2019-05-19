@@ -1,11 +1,12 @@
-
-        <a href="/users/about">About Us</a>
-        <a href="/users/logout">Sign Out</a>
-
+<header>
+    <a href="/users/{{userID}}/profile"> Profile </a>
+    <a href="/users/logout">Sign Out</a>
+</header>        
 
 <main>
     <h1>Welcome!</h1>
     <section>
+        <h2>Search for Venues Here</h2>
         <form action="/search/{{userID}}" method="POST">
             <p>Search By:</p>
             <label for="name">Name</label>
