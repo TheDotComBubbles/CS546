@@ -34,7 +34,7 @@
     </section>
     
     <section>
-        <p>Write your review here:</p>
+        <h2>Write your review here:</h2>
         <form method="post" id="review-form" data-venueId={{venueID}} data-userId = {{userId}} action="/venues/{{userId}}/{{venueID}}/reviewadded">
             <label for="rating">Rating</label>
             <select name="rating" id="rating" required>
@@ -47,7 +47,7 @@
             </select>
             <label for="content">Review</label>
             <input type="text" name="content" id="content" placeholder="Add your review here">
-            <button type="submit" id="submit review">Submit Review</button>
+            <button type="submit" id="submitreview">Submit Review</button>
         </form>
 
         <div id="message-container"></div>
