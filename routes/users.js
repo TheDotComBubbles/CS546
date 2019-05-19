@@ -14,12 +14,6 @@ router.get("/registration", checkCookie, async (req, res) => {
   res.status(200).render("pages/registration",{error:false})
 });
 
-router.get("/logout", checkCookie, async (req, res) => {
-  console.log("sign out")
-  
-  res.status(200).render("pages/login")
-});
-
 router.get("/profile", checkCookie, async (req, res) => {
   console.log("profile")
   res.status(200).render("pages/profile")
