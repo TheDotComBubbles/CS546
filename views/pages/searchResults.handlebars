@@ -1,19 +1,18 @@
 {{!-- // name, location, style, description, rating --}}
 <header>
-    <nav>
-        <a href="/">Profile</a>
-        <a href="/">About Us</a>
-        <a href="/">Sign Out</a>
-    </nav>
-</header>
+    <a href="/users/logout">Sign Out</a>
+</header>        
+
 
 <main>
     <h1>{{title}}</h1>
     <h3>{{type}} : {{searchStr}}</h3>
+
     <ul>
         {{#each foundData}}
             <li>
-                <a href="/venues/{{_id}}">{{name}}</a>
+                {{!-- <p>{{../userId}}  {{_id}}</p> --}}
+                <a href="/venues/{{../userId}}/{{_id}}">{{name}}</a>
                 <p>Location: {{location}}</p>
                 <p>Rating: {{rating}}</p>
             </li>
@@ -28,5 +27,5 @@
 </main>
 
 <footer>
-    <a href="/home">Make another Search</a>
+    <a href="/{{userId}}/home">Make another Search</a>
 </footer>

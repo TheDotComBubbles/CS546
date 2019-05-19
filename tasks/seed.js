@@ -67,7 +67,7 @@ const main = async () => {
     const user2 = await users.create("Phil", "Barresi", "phil@stevens.edu", "555-555-5556", 99, "Password", "08-19-1919")
     console.log("added a user", user2)
     userIds.push(user2);
-    const user3 = await users.create("Alisha", "Singh", "alisha@stevens.edu", "555-555-5557", 25, "Password", "09-19-1993")
+    const user3 = await users.create("Alisha", "Singh", "alisha@stevens.edu", "555-555-5557", 23, "Password", "06-17-1995")
     console.log("added a user", user3)
     userIds.push(user3);
     const user4 = await users.create("Shalin", "Shalin", "shalin@stevens.edu", "555-555-5558", 25, "Password", "10-19-1993")
@@ -93,14 +93,11 @@ const main = async () => {
         ]
 
         let result = await asyncForEach([1,2,3,4], async (i) => {
-            min = Math.ceil(0);
-            max = Math.floor(userIds.length-1);
-            five = Math.ceil(5);
-            let randomNum =  Math.floor(Math.random() * (max - min)) + min;
-            let randomNum5 =  Math.floor(Math.random() * (five - min)) + min;
+            let randomUser =  Math.floor(Math.random()* userIds.length);
+            let randomNum5 =  Math.floor(Math.random()* 6);
 
-            let result = await venues.addVenueReview(id, userIds[randomNum]._id, i +
-                "  Hi, I am " + userIds[randomNum].firstName + 
+            let result = await venues.addVenueReview(id, userIds[randomUser]._id, i +
+                "  Hi, I am " + userIds[randomUser].firstName + 
                 ". I rated my last visit at this venue as " + outcomes[randomNum5], randomNum5)
 
             console.log(result)

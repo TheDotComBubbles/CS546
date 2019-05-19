@@ -3,7 +3,7 @@ const router = express.Router();
 const data = require("../data");
 const venueData = data.venues;
 
-router.post("/", async (req, res) => {
+router.post("/:userid", async (req, res) => {
     try {
         console.log("Hey you're in post route of search")
         console.log(req.body)
@@ -13,7 +13,9 @@ router.post("/", async (req, res) => {
         let type = req.body.searchtype
         let searchStr = req.body.searchstring.trim()
 
-        let data
+        let userId = req.params.userid
+        console.log("============", userId);
+        let data;
 
         if (type === "name") {
             data = await venueData.getVenuesBySearchString(searchStr)
@@ -26,16 +28,14 @@ router.post("/", async (req, res) => {
             param.forEach(element => {
                 element = Number(element)
             });
-            console.log(`Parameter sent:${typeof param} ${param}`)
-            data = await venueData.getVenueByRating(param)
+            //data = await venueData.getVenueByRating(param)
+            data = await venueData.getVenueByRatingGT(searchStr);
         }
-        console.log("Data found:", data)
-        console.log(typeof data)
 
         if (data.length === 0) {
-            res.render("pages/searchResults", { hasErrors: true, title: "Search Result", foundData: data, searchStr: searchStr, type: type.toUpperCase() })
+            res.render("pages/searchResults", { hasErrors: true, title: "Search Result", foundData: data, searchStr: searchStr, type: type.toUpperCase(), userId:userId })
         } else {
-            res.render("pages/searchResults", { hasErrors: false, title: "Search Result", foundData: data, searchStr: searchStr, type: type.toUpperCase()})
+            res.render("pages/searchResults", { hasErrors: false, title: "Search Result", foundData: data, searchStr: searchStr, type: type.toUpperCase(), userId:userId})
         }       
     } catch (error) {
         res.status(500).json({error: error})

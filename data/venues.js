@@ -13,10 +13,7 @@ let exportedMethods = {
             if(allVenues===undefined) throw "No Venues Found";
             return allVenues;
         })
-    })/*.catch(error=> {
-        Promise.reject(error);
-        throw error
-    })*/
+    })
 },
 
 getVenueById(id) {   
@@ -64,7 +61,6 @@ getVenueByName(name) {
 getVenuesBySearchString(searchString) { 
     try {  
         let rx = new RegExp(searchString)
-        console.log("\n\n" + rx + "\n\n\n\n");
         return validate.verifyString(searchString)
             .then(() => {
                 return venues()
@@ -87,11 +83,12 @@ getVenuesBySearchString(searchString) {
 
 getVenueByLocation(location) { 
     try {  
+        let rx = new RegExp(location)
         return validate.verifyString(location)
             .then(() => {
                 return venues()
                 .then(venueCollection => {
-                    return venueCollection.find({"location": location }).toArray()
+                    return venueCollection.find({ "location": { $regex: rx }}).toArray()
                     .then(venue => {
                     if (!venue) throw "WARN: " + "Could not find venue with location " + location;
                     return venue;
@@ -131,6 +128,29 @@ getVenueByRating(rating) {
     }
 },
 
+getVenueByRatingGT(rating) {  
+    try {         
+        validate.verifyNum(rating);
+
+        return venues()
+        .then(venueCollection => {
+            return venueCollection      
+                .find({ rating: { $gt: rating-1 } })
+                .toArray();
+            })
+            .then((venue) => {
+            if (!venue) throw "WARN: " + "Could not find venue with ratings in " + rating;
+            return venue;
+            })
+            .catch((error) => {
+                console.log("ERROR: " + error);
+        });
+    }
+    catch(error) {
+        console.log(error)
+    }
+},
+
 createVenue(name, location, style, description, rating) {
     try {
         return validate.verifyString(name, "name").then(() => {
@@ -162,6 +182,7 @@ createVenue(name, location, style, description, rating) {
         console.log(error);
     }
 },
+
 
 async addVenueReview(venueId, userId, review, rating) {
     try {
