@@ -14,6 +14,17 @@ router.get("/registration", checkCookie, async (req, res) => {
   res.status(200).render("pages/registration",{error:false})
 });
 
+
+router.get("/logout", checkCookie, async (req, res) => {
+  // console.log("sign in")
+  if(req.session.user){
+    res.clearCookie('user_sha')
+    res.redirect('/pages/login')
+  }else{
+    res.redirect('/pages/login')
+  }
+})
+
 router.get("/profile", checkCookie, async (req, res) => {
   console.log("profile")
   res.status(200).render("pages/profile")
@@ -44,6 +55,22 @@ router.get("/about", checkCookie, async (req, res) => {
     title:"AboutUs",
   });
 });
+
+// please update this user profile
+// router.get("/:userid/profile", async(req, res) => {
+//   try {
+//       console.log("In Venues GET route")
+//       // let venueId = ObjectID(req.params.venueid)
+//       let userId = ObjectID(req.params.userid)
+//       console.log("User ID", userId)
+//       const user = await userData.getUserById(userId)
+   
+//       res.render('pages/profile', { title: "Venue Details", firstName: user.firstName, lastName: user.lastName });
+
+//   } catch (error) {
+//       res.status(500).json({error: error})
+//   }
+// })
 
   router.post("/registration", async (req,res) =>{
     try{
