@@ -13,10 +13,7 @@ let exportedMethods = {
             if(allVenues===undefined) throw "No Venues Found";
             return allVenues;
         })
-    })/*.catch(error=> {
-        Promise.reject(error);
-        throw error
-    })*/
+    })
 },
 
 getVenueById(id) {   
