@@ -8,7 +8,7 @@ const ObjectID = require("mongodb").ObjectID
 router.get("/registration", checkCookie, async (req, res) => {
   console.log("sign up")
   req.flash('error','')
-  res.status(200).render("pages/registration",{error:false})
+  res.status(200).render("pages/registration", {layout: 'alternate.handlebars', error:false})
 });
 
 
@@ -22,17 +22,13 @@ router.get("/logout", checkCookie, async (req, res) => {
   }
 })
 
-// router.get("/profile", checkCookie, async (req, res) => {
-//   console.log("profile")
-//   res.status(200).render("pages/profile")
-// });
-
 router.get("/logon", checkCookie, async (req, res) => {
   console.log("sign in")
  
 
   res.status(200).render("pages/login", {
     title:"Signup Page",
+    layout: 'alternate.handlebars'
   });
 });
 
@@ -45,13 +41,6 @@ router.get("/logout", checkCookie, async (req, res) => {
     res.redirect('/pages/login')
   }
 })
-
-// router.get("/about", checkCookie, async (req, res) => {
-//   console.log("sign in")
-//   res.status(200).render("pages/aboutUS", {
-//     title:"AboutUs",
-//   });
-// });
 
 // please update this user profile
 router.get("/:userid/profile", async(req, res) => {

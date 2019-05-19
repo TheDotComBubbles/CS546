@@ -29,7 +29,8 @@ const constructorMethod = app => {
     res.sendFile(route)
   })
   app.use("*", (req, res) => {
-    res.render("pages/login");
+    //res.render("pages/login");
+    res.render('pages/login', {layout: 'alternate.handlebars'});
   });
 };
 
